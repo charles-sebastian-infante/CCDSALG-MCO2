@@ -1,0 +1,7 @@
+# Ignore VSCode-specific stuff (if anyone is using VSCode)
+.vscode/*
+
+# Ignore all .exe files
+*.exe
+.vscode/tasks.json
+*.txt
