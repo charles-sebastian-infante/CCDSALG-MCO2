@@ -69,7 +69,7 @@ hasEdge(Graph *g, int startVertex, char *name)
 }
 
 int
-addEdge(Graph *g, int startVertex, int endVertex, char *name)
+addEdge(Graph *g, int startVertex, char *name)
 {
     Node *current = g->adjacencyList[startVertex];
     bool alreadyConnected = false;
@@ -112,7 +112,7 @@ main(void)
 {
     Graph *test = createGraph(3);
     createVertex(test, 0, "Allen");
-    addEdge(test, 0, 1, "Ryan");
+    addEdge(test, 0, "Ryan");
     createVertex(test, 1, "Jack");
     createVertex(test, 2, "Ryan");
 
