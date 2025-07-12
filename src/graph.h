@@ -10,7 +10,7 @@
 #ifndef GRAPHTAG
 #define GRAPHTAG
 typedef struct graphTag{
-    int numVertex;
+    int numVertices;
     
     // note that double pointer was used as array size yet to be init
     // C requires multi-dimensional arrays to have at least one init. dimension (other than first)

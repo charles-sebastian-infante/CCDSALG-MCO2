@@ -5,3 +5,6 @@
 *.exe
 .vscode/tasks.json
 *.txt
+
+# Ignore clang-format
+*.clang-format
