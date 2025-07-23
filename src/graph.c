@@ -24,6 +24,11 @@ createGraph(int numVertices)
 {
     // allocate memory for the graph and set # of vertices
     Graph *g = malloc(sizeof(Graph));
+    if (g == NULL){
+        printf("Unable to allocate memory for graph.\n");
+        return NULL;
+    }
+
     g->numVertices = numVertices;
 
     // allocate memory for the adjacency lists of g
@@ -38,23 +43,22 @@ createGraph(int numVertices)
 
     for (int i = 0; i < numVertices; i++) {
         g->adjacencyList[i] = NULL;
-        g->adjacencyList[i]->nodeIndex = i;
     }
 
     return g;
 }
-
 
 bool
 createVertex(Graph *g, int vertex, char *name)
 {
     // if vertex has been created
     if (g->adjacencyList[vertex] != NULL) {
-        printf("\nThat vertex has already been created!\n");
+        printf("\nVertex %s has already been created!\n", name);
         return false;
     }
 
     Node *newNode = createNode(name);
+    newNode->nodeIndex = vertex;
     g->adjacencyList[vertex] = newNode;
 
     return true;
@@ -78,57 +82,43 @@ hasEdge(Graph *g, int startVertex, char *name)
 bool
 addEdge(Graph *g, int startVertex, int endVertex, char *startName, char *endName)
 {
-    // initial check for duplicate edge
+    // check if edge has been connected previously
     if (hasEdge(g, startVertex, endName) || hasEdge(g, endVertex, startName)){
+        printf("Edge <%s,%s> is already connected!\n", startName, endName);
         return false;
     }
-    
-    // create startVertex->endVertex connection
+
+    // create the first connection (startVertex->endVertex)
     Node *current = g->adjacencyList[startVertex];
-    bool alreadyConnected = false;
-
-    while (current != NULL && alreadyConnected) {
-        if (strcmp(current->name, endName) != 0) {
-            alreadyConnected = true;
-        }
-        current = current->next;
-    }
-
-    if (!alreadyConnected) {
-        Node *new = createNode(endName);
-        new->next = g->adjacencyList[startVertex];
-        g->adjacencyList[startVertex] = new;
-    }
     
-    // create endVertex->startVertex connection
-    current = g->adjacencyList[endVertex];
-    alreadyConnected = false;
-    while (current != NULL && alreadyConnected){
-        if (strcmp(current->name, startName) != 0){
-            alreadyConnected = true;
-        }
+    while (current->next != NULL){
         current = current->next;
     }
 
-    if (!alreadyConnected){
-        Node *new = createNode(startName);
-        new->next = g->adjacencyList[endVertex];
-        g->adjacencyList[endVertex] = new;
+    Node *new = createNode(endName);
+    current->next = new;
+
+    // create second connection (endVertex->startVertex)
+    current = g->adjacencyList[endVertex];
+
+    while (current->next != NULL){
+        current = current->next;
     }
 
+    new = createNode(startName);
+    current->next = new;
     return true;
 }
 
-// temp and it's not in the format sir asked for
 void
 printAdjacencyList(Node *head)
 {
-
     Node *current = head;
     while (current != NULL) {
-        printf("<%s> -> ", current->name);
+        printf("%s->", current->name);
         current = current->next;
     }
+    printf("\\\n");
 }
 
 void
@@ -136,18 +126,5 @@ printGraph(Graph *g)
 {
     for (int i = 0; i < g->numVertices; i++) {
         printAdjacencyList(g->adjacencyList[i]);
-        printf("[NULL]\n");
     }
-}
-
-int
-main(void)
-{
-    Graph *test = createGraph(3);
-    createVertex(test, 0, "Allen");
-    addEdge(test, 0, 2, "Allen", "Ryan");
-    createVertex(test, 1, "Jack");
-    createVertex(test, 2, "Ryan");
-
-    printGraph(test);
 }

@@ -55,7 +55,7 @@ bool createVertex(Graph *g, int vertex, char *name);
 /**
  * checks if a graph has an edge from one vertex to another.
  * @param g is a pointer to the graph where both vertices are located
- * @param startVertex is the index of the adjacency list to add to
+ * @param startVertex is the index of the adjacency list to check
  * @param name is the unique identifier of the terminal vertex to be checked
  * @return true if an edge has been found, false otherwise
  */
