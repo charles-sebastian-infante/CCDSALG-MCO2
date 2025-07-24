@@ -1,0 +1,23 @@
+#include "../src/outputfiles.c"
+
+int main() {
+    Graph *g = createGraph(4);
+
+    createVertex(g, 0, "Diana");
+    createVertex(g, 1, "Bruce");
+    createVertex(g, 2, "Hal");
+    createVertex(g, 3, "Clark");
+    
+    addEdge(g,0,"Hal");
+    addEdge(g,0,"Bruce");
+    addEdge(g,0,"Clark");
+    addEdge(g,1,"Diana");
+    addEdge(g,2,"Clark");
+    addEdge(g,2,"Diana");
+    addEdge(g,3,"Hal");
+    addEdge(g,3,"Diana");
+
+    outputSet(*g, "G");
+    outputDegree(*g, "G");
+    outputAdjacencyList(g, "G");
+}

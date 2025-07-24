@@ -1,3 +1,6 @@
+#ifndef GRAPH_C
+#define GRAPH_C
+
 #include "graph.h"
 
 Node *
@@ -111,6 +114,7 @@ addEdge(Graph *g, int startVertex, char *endName)
     return true;
 }
 
+/*
 // G.txt used for testing outputs
 // delete for final submission
 int main(){
@@ -129,4 +133,7 @@ int main(){
     addEdge(g,2,"Diana");
     addEdge(g,3,"Hal");
     addEdge(g,3,"Diana");
-} 
+}
+*/
+
+#endif // GRAPH_C

@@ -3,12 +3,28 @@
 #include <stdio.h>
 #include "graph.c"
 
+#ifndef EDGE_DEFINED
+#define EDGE_DEFINED
 /**
- * writess a graph in the form of a set to a file
- * @param g graph to be outputted
- * @param name the name of the outputfile
+ * Representation of an edge.
+ * 
+ * @param startVertex String containing the ID of the start vertex
+ * @param endVertex String containing the ID of the end vertex
  */
-void outputAsSet(Graph *g, char *name);
+typedef struct {
+    char startVertex[9]; // vertex ID has maximum length of 8 characters
+    char endVertex[9];
+} Edge;
+#endif
+
+/**
+ * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
+ * 
+ * @param g The graph of the file
+ * @param name String containing the name of the graph
+ */
+void outputSet(Graph g, char *name);
+
 /**
  * writes the vertex ids of a graph to a file
  * @param g graph to be outputted

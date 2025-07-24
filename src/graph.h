@@ -1,6 +1,3 @@
-#ifndef GRAPH_HEADER
-#define GRAPH_HEADER
-
 /**
  * Programmed by: Charles Infante
  */
@@ -29,7 +26,6 @@ typedef struct nodeTag {
 typedef struct graphTag{
     int numVertices;
     Node** adjacencyList; 
-       
 } Graph;
 
 /**
@@ -80,4 +76,3 @@ void printAdjacencyList(Node *head);
  * @return void
  */
 void printGraph(Graph *g);
-#endif
