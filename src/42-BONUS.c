@@ -91,7 +91,7 @@ int main() {
     bool resultObtained;
 
     int graph1VertexIndex, graph2VertexIndex;
-    int vertexComparison;
+    int vertexComparison; // result of the comparison between the two vertices
 
     graph1VertexIndex = 0;
     for (graph2VertexIndex = 0; graph2VertexIndex < numGraph2Vertices; graph2VertexIndex++) {
