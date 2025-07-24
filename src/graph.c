@@ -79,52 +79,54 @@ hasEdge(Graph *g, int startVertex, char *name)
     return false;
 }
 
+
+
 bool
-addEdge(Graph *g, int startVertex, int endVertex, char *startName, char *endName)
+addEdge(Graph *g, int startVertex, char *endName)
 {
     // check if edge has been connected previously
-    if (hasEdge(g, startVertex, endName) || hasEdge(g, endVertex, startName)){
-        printf("Edge <%s,%s> is already connected!\n", startName, endName);
+    if (hasEdge(g, startVertex, endName)){
+        printf("Edge <%s,%s> is already connected!\n", g->adjacencyList[startVertex]->name, endName);
         return false;
     }
-
+    
     // create the first connection (startVertex->endVertex)
     Node *current = g->adjacencyList[startVertex];
+    int endVertexIndex;
+
+    for (int i = 0; i < g->numVertices; i++) {
+        if (strcmp(g->adjacencyList[i]->name, endName) == 0)
+            endVertexIndex = i;
+    }
     
+
     while (current->next != NULL){
         current = current->next;
     }
 
     Node *new = createNode(endName);
+    new->nodeIndex = endVertexIndex;
     current->next = new;
 
-    // create second connection (endVertex->startVertex)
-    current = g->adjacencyList[endVertex];
-
-    while (current->next != NULL){
-        current = current->next;
-    }
-
-    new = createNode(startName);
-    current->next = new;
     return true;
 }
 
-void
-printAdjacencyList(Node *head)
-{
-    Node *current = head;
-    while (current != NULL) {
-        printf("%s->", current->name);
-        current = current->next;
-    }
-    printf("\\\n");
-}
+// G.txt used for testing outputs
+// delete for final submission
+int main(){
+    Graph *g = createGraph(4);
 
-void
-printGraph(Graph *g)
-{
-    for (int i = 0; i < g->numVertices; i++) {
-        printAdjacencyList(g->adjacencyList[i]);
-    }
-}
+    createVertex(g, 0, "Diana");
+    createVertex(g, 1, "Bruce");
+    createVertex(g, 2, "Hal");
+    createVertex(g, 3, "Clark");
+    
+    addEdge(g,0,"Hal");
+    addEdge(g,0,"Bruce");
+    addEdge(g,0,"Clark");
+    addEdge(g,1,"Diana");
+    addEdge(g,2,"Clark");
+    addEdge(g,2,"Diana");
+    addEdge(g,3,"Hal");
+    addEdge(g,3,"Diana");
+} 

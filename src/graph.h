@@ -63,13 +63,11 @@ bool hasEdge(Graph *g, int startVertex, char *name);
 /**
  * adds an edge from one vertex to another
  * @param g is a pointer to the graph to add a vertex.
- * @param startVertex is the index of the start vertex's adjacency list
- * @param endVertex is the index of the end vertex's adjacency list
- * @param startName is the identifier of the start vertex
- * @param endVertex is the identifier of the end vertex
+ * @param startVertex is the index of the destination adjacency list
+ * @param endVertex is the identifier of the Node to add
  * @return true if the edge is successfully created, false otherwise.
  */
-bool addEdge(Graph *g, int startVertex, int endVertex, char *startName, char *endName);
+bool addEdge(Graph *g, int startVertex, char *endName);
 /**
  * prints the adjacency list of a Node.
  * @param head is the head node of a given adjacency list.
