@@ -1,3 +1,8 @@
+/**
+ * Programmed by: Christian Gendrano, Charles Infante, and Allen Hizon
+ * Tested by: Christian Gendrano, Charles Infante, and Allen Hizon
+ */
+
 #include "outputfiles.h"
 
 #include "output1-set.c"

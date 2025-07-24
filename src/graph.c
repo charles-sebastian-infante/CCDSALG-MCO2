@@ -1,3 +1,8 @@
+/**
+ * Programmed by: Charles Infante
+ * Tested by: Charles Infante
+ */
+
 #ifndef GRAPH_C
 #define GRAPH_C
 
