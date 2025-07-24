@@ -1,7 +1,7 @@
 #include "outputfiles.h"
 
-#include "o1-vertices-and-edges.c"
-#include "o2-degree.c"
+#include "output1-set.c"
+#include "output2-degree.c"
 
 /**
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
