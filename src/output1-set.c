@@ -64,9 +64,9 @@ void sortVertexIds(char arrVertexIds[][9], int numVertexIds) {
             if (strcmp(arrVertexIds[j], arrVertexIds[minIndex]) < 0) {
                 minIndex = j;
             }
-
-            swapStrings(arrVertexIds[i], arrVertexIds[minIndex]);
         }
+
+        swapStrings(arrVertexIds[i], arrVertexIds[minIndex]);
     }
 }
 
@@ -141,6 +141,27 @@ void swapEdges(Edge *a, Edge *b) {
 }
 
 /**
+ * Compares two edges, first based on alphabetical order of the start vertices,
+ * then based on alphabetical order of the end vertices.
+ * 
+ * @param a The first edge to be compared
+ * @param b The second edge to be compared
+ * @return 0 if the edges are identical, -1 if the first edge comes before the
+ *         second edge, or 1 if the second edge comes after the first edge
+ */
+int compareEdges(Edge a, Edge b) {
+    if (strcmp(a.startVertex, b.startVertex) == 0) {
+        /* if the start vertices are identical, return the result of the
+           strcmp between the end vertices */
+        return strcmp(a.endVertex, b.endVertex);
+    } else {
+        /* if the start vertices are not identical, just return the result
+           of the strcmp between the start vertices */
+        return strcmp(a.startVertex, b.startVertex);
+    }
+}
+
+/**
  * Sorts the edges in alphabetical order, first by the ID of the start vertex,
  * then by the ID of the end vertex.
  * 
@@ -155,18 +176,11 @@ void sortEdges(Edge arrEdges[], int numEdges) {
         minIndex = i;
 
         for (j = i + 1; j < numEdges; j++) {
-            if (strcmp(arrEdges[j].startVertex, arrEdges[minIndex].startVertex) < 0) {
-                /* if start vertex of the edge at index j comes before the start vertex of
-                   the edge at index minIndex alphabetically, set j to minIndex */
+            if (compareEdges(arrEdges[j], arrEdges[minIndex]) < 0) {
                 minIndex = j;
-            } else if (strcmp(arrEdges[j].startVertex, arrEdges[minIndex].startVertex) == 0) {
-                /* otherwise, if the start vertices are identical, compare the end vertices */
-                if (strcmp(arrEdges[j].endVertex, arrEdges[minIndex].endVertex) < 0) {
-                    minIndex = j;
-                }
             }
-
-            swapEdges(&arrEdges[i], &arrEdges[minIndex]);
         }
+
+        swapEdges(&arrEdges[i], &arrEdges[minIndex]);
     }
 }
