@@ -6,10 +6,10 @@
 /**
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
  * 
- * @param g The graph of the file
- * @param name String containing the name of the graph
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
  */
-void outputSet(Graph g, char *name)
+void outputSet(char *strOutputFileName, Graph g)
 {
     /* Getting the sorted list of vertices */
     char arrVertexIds[g.numVertices][9];
@@ -31,14 +31,10 @@ void outputSet(Graph g, char *name)
     sortEdges(arrEdges, numEdges);
     
     /* Printing output to file */
-    char file[1024];
-    // copy name and add corresponding output content & file extension
-    strcpy(file, name);
-    strcat(file, "-SET.txt");
-    FILE *fp = fopen(file, "w");
+    FILE *fp = fopen(strOutputFileName, "w");
 
     // printing set of vertices
-    fprintf(fp, "V(%s)={", name);
+    fprintf(fp, "V(%c)={", strOutputFileName[0]); // first character of file name is the graph name
 
     for (int i = 0; i < g.numVertices; i++) {
         fprintf(fp, "%s", arrVertexIds[i]);
@@ -52,7 +48,7 @@ void outputSet(Graph g, char *name)
     fprintf(fp, "}\n");
 
     // printing set of edges
-    fprintf(fp, "E(%s)={", name);
+    fprintf(fp, "E(%c)={", strOutputFileName[0]); // first character of file name is the graph name
 
     for (int i = 0; i < numEdges; i++) {
         fprintf(fp, "(%s,%s)", arrEdges[i].startVertex, arrEdges[i].endVertex);
@@ -68,8 +64,14 @@ void outputSet(Graph g, char *name)
     fclose(fp);
 }
 
+/**
+ * Produces output file #2, which contains the list of vertex IDs and their corresponding degrees.
+ * 
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
+ */
 void 
-outputDegree(Graph g, char *name)
+outputDegree(char *strOutputFileName, Graph g)
 {
     /* Getting the sorted list of vertices */
     char arrVertexIds[g.numVertices][9];
@@ -77,11 +79,7 @@ outputDegree(Graph g, char *name)
     getVertexIds(g, arrVertexIds);
     sortVertexIds(arrVertexIds, g.numVertices);
 
-    char file[1024];
-    // copy name and add corresponding output content & file extension
-    strcpy(file, name);
-    strcat(file, "-DEGREE.txt");
-    FILE *fp = fopen(file, "w");
+    FILE *fp = fopen(strOutputFileName, "w");
 
     for (int i = 0; i < g.numVertices; i++) {
         fprintf(fp, "%-8s %d", arrVertexIds[i], getDegreeOfVertex(g, arrVertexIds[i]));
@@ -95,13 +93,9 @@ outputDegree(Graph g, char *name)
 }
 
 void 
-outputAdjacencyList(Graph *g, char *name)
+outputAdjacencyList(char *strOutputFileName, Graph *g)
 {
-    char file[1024];
-    // copy name and add corresponding output content & file extension
-    strcpy(file, name);
-    strcat(file, "-LIST.txt");
-    FILE *fp = fopen(file, "w");
+    FILE *fp = fopen(strOutputFileName, "w");
     // traverse the linked list, print every Node until null.
     for (int i = 0; i < g->numVertices; i++){
         Node *current = g->adjacencyList[i];
@@ -116,13 +110,9 @@ outputAdjacencyList(Graph *g, char *name)
 }
 
 void 
-outputAdjacencyMatrix(Graph *g, char *name)
+outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 {
-    char file[1024];
-    // copy name and add corresponding output content & file extension
-    strcpy(file, name);
-    strcat(file, "-MATRIX.txt");
-    FILE *fp = fopen(file, "w");
+    FILE *fp = fopen(strOutputFileName, "w");
 
     int numVertex = g->numVertices;
 
@@ -163,25 +153,17 @@ outputAdjacencyMatrix(Graph *g, char *name)
 }
 
 void 
-outputBFS(Graph *g, char *name)
+outputBFS(char *strOutputFileName, Graph g)
 {
-    char file[1024];
-    // copy name and add corresponding output content & file extension
-    strcpy(file, name);
-    strcat(file, "-LIST.txt");
-    FILE *fp = fopen(file, "w");
+    FILE *fp = fopen(strOutputFileName, "w");
 
     fclose(fp);
 }
 
 void 
-outputDFS(Graph *g, char *name)
+outputDFS(char *strOutputFileName, Graph g)
 {
-    char file[1024];
-    // copy name and add corresponding output content & file extension
-    strcpy(file, name);
-    strcat(file, "-DFS.txt");
-    FILE *fp = fopen(file, "w");
+    FILE *fp = fopen(strOutputFileName, "w");
 
     fclose(fp);
 }

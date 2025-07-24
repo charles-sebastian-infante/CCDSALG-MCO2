@@ -20,39 +20,45 @@ typedef struct {
 /**
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
  * 
- * @param g The graph of the file
- * @param name String containing the name of the graph
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
  */
-void outputSet(Graph g, char *name);
+void outputSet(char *strOutputFileName, Graph g);
 
 /**
- * writes the vertex ids of a graph to a file
- * @param g graph to be outputted
- * @param name the name of the outputfile
+ * Produces output file #2, which contains the list of vertex IDs and their corresponding degrees.
+ * 
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
  */
-void outputVertexIDs(Graph *g, char *name);
+void outputDegree(char *strOutputFileName, Graph g);
+
 /**
- * writes the adjacency lists of a graph to a file
- * @param g graph to be outputted
- * @param name the name of the outputfile
+ * Writes the adjacency lists of a graph to a file
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g Graph to be outputted
  */
-void outputAdjacencyList(Graph *g, char *name);
+void outputAdjacencyList(char *strOutputFileName, Graph *g);
+
 /**
- * writes an adjacency matrix of a graph to a file
- * @param g graph to be outputted
- * @param name the name of the outputfile
+ * Writes an adjacency matrix of a graph to a file
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g Graph to be outputted
  */
-// void outputAdjacencyMatrix(Graph *g, char *name);
+void outputAdjacencyMatrix(char *strOutputFileName, Graph *g);
+
 /**
- * writes the BFS traversal of a node from a graph to a file
- * @param g graph to be outputted
- * @param name the name of the outputfile
+ * Writes the BFS traversal of a node from a graph to a file
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g Graph to be outputted
  */
-void outputBFS(Graph *g, char *name);
+void outputBFS(char *strOutputFileName, Graph g);
+
 /**
- * writes the DFS traversal of a node from a graph to a file
- * @param g graph to be outputted
- * @param name the name of the outputfile
+ * Writes the DFS traversal of a node from a graph to a file
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g Graph to be outputted
  */
-void outputDFS(Graph *g, char *name);
+void outputDFS(char *strOutputFileName, Graph g);
+
 #endif

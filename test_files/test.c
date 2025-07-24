@@ -17,7 +17,8 @@ int main() {
     addEdge(g,3,"Hal");
     addEdge(g,3,"Diana");
 
-    outputSet(*g, "G");
-    outputDegree(*g, "G");
-    outputAdjacencyList(g, "G");
+    outputSet("G-SET.TXT", *g);
+    outputDegree("G-DEGREE.TXT", *g);
+    outputAdjacencyList("G-LIST.TXT", g);
+    outputAdjacencyMatrix("G-MATRIX.TXT", g);
 }
