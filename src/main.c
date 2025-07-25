@@ -1,5 +1,5 @@
-#include "../src/outputfiles.c"
-#include "../src/reader.c"
+#include "outputfiles.c"
+#include "reader.c"
 
 int main() {
     /*

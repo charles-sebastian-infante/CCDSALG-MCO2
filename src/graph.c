@@ -87,8 +87,6 @@ hasEdge(Graph *g, int startVertex, char *name)
     return false;
 }
 
-
-
 bool
 addEdge(Graph *g, int startVertex, char *endName)
 {
