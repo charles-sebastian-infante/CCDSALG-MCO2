@@ -1,3 +1,8 @@
+/**
+ * Programmed by: Christian Gendrano
+ * Tested by: Christian Gendrano
+ */
+
 #include "output1-set.c"
 
 int main() {
