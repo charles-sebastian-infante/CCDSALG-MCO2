@@ -58,8 +58,8 @@ void outputSet(char *strOutputFileName, Graph g)
     for (int i = 0; i < numEdges; i++) {
         fprintf(fp, "(%s,%s)", arrEdges[i].startVertex, arrEdges[i].endVertex);
 
-        // print a comma if it is not the last vertex
-        if (i != g.numVertices - 1) {
+        // print a comma if it is not the last edge
+        if (i != numEdges - 1) {
             fprintf(fp, ",");
         }
     }
