@@ -4,54 +4,40 @@
  */
 
 #include "output1-set.c"
+#include "reader.c"
 
 int main() {
-
-    char graph1Name;
-    char graph2Name;
+    // input data for graph 1
+    char graph1FileName[9];
     Graph *graph1;
+    
+    printf("Input graph 1 filename: ");
+    scanf("%s", graph1FileName);
+
+    bool graph1FileRead = readInputFile(graph1FileName, &graph1);
+
+    if (!graph1FileRead) {
+        printf("File %s not found.", graph1FileName);
+        return 1;
+    }
+
+    char graph1Name = graph1FileName[0]; // graph name is the first character of the filename
+
+    // input data for graph 2
+    char graph2FileName[9];
     Graph *graph2;
 
-    /* REMOVE THIS LATER (just for testing) */
-    graph1 = createGraph(4);
-    graph1Name = 'A';
+    printf("Input graph 2 filename: ");
+    scanf("%s", graph2FileName);
 
-    createVertex(graph1, 0, "Diana");
-    createVertex(graph1, 1, "Bruce");
-    createVertex(graph1, 2, "Hal");
-    createVertex(graph1, 3, "Clark");
-    
-    addEdge(graph1,0,"Hal");
-    addEdge(graph1,0,"Bruce");
-    addEdge(graph1,0,"Clark");
-    addEdge(graph1,1,"Diana");
-    addEdge(graph1,2,"Clark");
-    addEdge(graph1,2,"Diana");
-    addEdge(graph1,3,"Hal");
-    addEdge(graph1,3,"Diana");
+    bool graph2FileRead = readInputFile(graph2FileName, &graph2);
 
-    graph2 = createGraph(4);
-    graph2Name = 'B';
+    if (!graph2FileRead) {
+        printf("File %s not found.", graph2FileName);
+        return 1;
+    }
 
-    createVertex(graph2, 0, "Diana");
-    createVertex(graph2, 1, "Bruce");
-    createVertex(graph2, 2, "Hal");
-    createVertex(graph2, 3, "Clark");
-    
-    addEdge(graph2,0,"Hal");
-    addEdge(graph2,0,"Bruce");
-    addEdge(graph2,0,"Clark");
-    addEdge(graph2,1,"Diana");
-    addEdge(graph2,2,"Clark");
-    addEdge(graph2,2,"Diana");
-    addEdge(graph2,3,"Hal");
-    addEdge(graph2,3,"Diana");
-    /* END OF THING TO BE REMOVED */
-
-    // input graph from text file for first graph
-    // readInputFile(firstFilename, &graph1);
-    // input graph from text file for second graph
-    // readInputFile(secondFilename, &graph2);
+    char graph2Name = graph2FileName[0];
     
     // get and sort vertices from first graph
     int numGraph1Vertices = graph1->numVertices;
@@ -87,6 +73,7 @@ int main() {
     char outputFileName[17] = "#-#-SUBGRAPH.TXT"; // '#'s are placeholders
     outputFileName[0] = graph1Name; // replacing first # with name of graph 1
     outputFileName[2] = graph2Name; // replacing second # with name of graph 2
+
     FILE *fp = fopen(outputFileName, "w");
 
     // print and check if vertices from second graph match first graph
