@@ -1,5 +1,6 @@
 #include "../src/outputfiles.c"
 #include "../src/reader.c"
+#include "../test_functions/graph-printing.c"
 
 int main() {
     /*
@@ -27,4 +28,6 @@ int main() {
     outputAdjacencyMatrix("G-MATRIX.TXT", g);
     outputSet("G-SET.TXT", *g);
     outputDegree("G-DEGREE.TXT", *g);
+
+    printGraph(*g);
 }

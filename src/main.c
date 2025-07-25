@@ -26,7 +26,7 @@ int main() {
     */
 
     Graph *g;
-    readInputFile("../text_files/G.txt", &g);
+    readInputFile("../text_files_unofficial/P.txt", &g);
 
     outputAdjacencyList("G-LIST.TXT", g);
     outputAdjacencyMatrix("G-MATRIX.TXT", g);
