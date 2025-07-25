@@ -7,29 +7,52 @@
 #include "reader.c"
 
 int main() {
-    /*
-    Graph *g = createGraph(4);
+    char inputFileName[9];
 
-    createVertex(g, 0, "Diana");
-    createVertex(g, 1, "Bruce");
-    createVertex(g, 2, "Hal");
-    createVertex(g, 3, "Clark");
-    
-    addEdge(g,0,"Hal");
-    addEdge(g,0,"Bruce");
-    addEdge(g,0,"Clark");
-    addEdge(g,1,"Diana");
-    addEdge(g,2,"Clark");
-    addEdge(g,2,"Diana");
-    addEdge(g,3,"Hal");
-    addEdge(g,3,"Diana");
-    */
+    printf("Input filename:");
+    scanf("%s", inputFileName);
 
+    bool fileReadSuccessfully, startVertexFound;
     Graph *g;
-    readInputFile("../text_files_unofficial/P.txt", &g);
 
-    outputAdjacencyList("G-LIST.TXT", g);
-    outputAdjacencyMatrix("G-MATRIX.TXT", g);
-    outputSet("G-SET.TXT", *g);
-    outputDegree("G-DEGREE.TXT", *g);
+    fileReadSuccessfully = readInputFile(inputFileName, &g);
+
+    if (!fileReadSuccessfully) {
+        printf("File %s not found.", inputFileName);
+    } else {
+        char graphName = inputFileName[0]; // graph name is first character in file name
+
+        char output1FileName[10] = "#-SET.TXT";
+        output1FileName[0] = graphName;
+        char output2FileName[13] = "#-DEGREE.TXT";
+        output2FileName[0] = graphName;
+        char output3FileName[11] = "#-LIST.TXT";
+        output3FileName[0] = graphName;
+        char output4FileName[13] = "#-MATRIX.TXT";
+        output4FileName[0] = graphName;
+        char output5FileName[10] = "#-BFS.TXT";
+        output5FileName[0] = graphName;
+        char output6FileName[10] = "#-DFS.TXT";
+        output6FileName[0] = graphName;
+
+        outputSet(output1FileName, *g);                 // output 1
+        outputDegree(output2FileName, *g);           // output 2
+        outputAdjacencyList(output3FileName, g);       // output 3
+        outputAdjacencyMatrix(output4FileName, g);   // output 4
+
+        char startVertex[9];
+
+        printf("Input start vertex for the traversal: ");
+        scanf("%s", startVertex);
+        startVertexFound = true; // TODO make this based on BFS/DFS later
+
+        if (!startVertexFound) {
+            printf("Vertex %s not found.", startVertex);
+        } else {
+            // TODO put BFS here
+            // TODO put DFS here
+        }
+    }
+    
+    return 0;
 }

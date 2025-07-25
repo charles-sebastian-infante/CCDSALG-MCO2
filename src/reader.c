@@ -74,4 +74,6 @@ bool readInputFile(char strInputFileName[], Graph **g) {
             }
         }
     }
+
+    return true;
 }
