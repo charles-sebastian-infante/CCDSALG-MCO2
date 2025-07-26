@@ -9,7 +9,7 @@
 #include <string.h>
 
 /**
- * a Node structure for a doubly linked list implementation.
+ * Node structure for a singly linked list
  * @param name the node's unique identifier
  * @param next pointer to the next node in the linked list
  * @param nodeIndex the index of the node.
@@ -66,15 +66,3 @@ bool hasEdge(Graph *g, int startVertex, char *name);
  * @return true if the edge is successfully created, false otherwise.
  */
 bool addEdge(Graph *g, int startVertex, char *endName);
-/**
- * prints the adjacency list of a Node.
- * @param head is the head node of a given adjacency list.
- * @return void
- */
-void printAdjacencyList(Node *head);
-/**
- * prints a graph.
- * @param g is the graph to be printed
- * @return void
- */
-void printGraph(Graph *g);

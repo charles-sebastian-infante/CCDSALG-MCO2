@@ -21,4 +21,8 @@ int main() {
     outputDegree("G-DEGREE.TXT", *g);
     outputAdjacencyList("G-LIST.TXT", g);
     outputAdjacencyMatrix("G-MATRIX.TXT", g);
+    outputBFS("G-BFS.TXT", 3, *g);
+    // Idk if the BFS function is supposed to turn "Clark" into ID 3 or
+    // it's supposed to search until "Clark" is found as an index or another function
+    // can search for clark's index and pass it to the BFS function.
 }
