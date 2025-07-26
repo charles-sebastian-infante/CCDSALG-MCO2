@@ -7,7 +7,7 @@
 
 #include "output1-set.c"
 #include "output2-degree.c"
-#include "output3-search.c"
+#include "output3-bfs.c"
 
 /**
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
@@ -117,11 +117,9 @@ outputAdjacencyList(char *strOutputFileName, Graph *g)
     fclose(fp);
 }
 
-void
-outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
+bool **
+createAdjacencyMatrix(Graph *g)
 {
-    FILE *fp = fopen(strOutputFileName, "w");
-
     int numVertex = g->numVertices;
 
     // populate matrix with 0s
@@ -142,6 +140,19 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
         }
     }
 
+    // return matrix
+    return matrix;
+}
+
+void
+outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
+{
+    FILE *fp = fopen(strOutputFileName, "w");
+
+    int numVertex = g->numVertices;
+
+    bool **matrix = createAdjacencyMatrix(g);
+
     fprintf(fp, "%9s", " ");
 
     for (int i = 0; i < g->numVertices; i++) {
@@ -156,41 +167,56 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
         }
         fprintf(fp, "\n");
     }
+
+    for (int i = 0; i < numVertex; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
 }
 
 void
-outputBFS(char *strOutputFileName, int startVertex, Graph g)
+outputBFS(char *strOutputFileName, int startVertex, Graph *g)
 {
 
     FILE *fp = fopen(strOutputFileName, "w");
 
-    bool *visited = calloc(g.numVertices, sizeof(bool));
+    bool *visited = calloc(g->numVertices, sizeof(bool));
     // Create an array of boolean values where each index is the vertex number
 
     // Create a queue to store all the unvisited indices
-    Queue *vertices = createQueue();
+    Queue *verticeQueue = createQueue();
 
-    enqueue(vertices, startVertex);
+    // Create adjacency matrix so the BFS is in the right order
+    bool **matrix = createAdjacencyMatrix(g);
+
+    enqueue(verticeQueue, startVertex);
     visited[startVertex] = true;
 
-    while (!isEmpty(vertices)) {
-        Node *current = g.adjacencyList[dequeue(vertices)];
+    while (!isEmpty(verticeQueue)) {
+        int currentVertex = dequeue(verticeQueue);
+        Node *current = g->adjacencyList[currentVertex];
         printf("[%s]", current->name);
 
         // Add all unvisited neighbors to the queue
-        while (current->next != NULL) {
-            current = current->next;
-            if (!isVisited(current->nodeIndex, visited)) {
-                enqueue(vertices, current->nodeIndex);
-                visited[current->nodeIndex] = true;
+        for (int i = 0; i < g->numVertices; i++) {
+            if (matrix[currentVertex][i] == true && !visited[i]) {
+                enqueue(verticeQueue, i);
+                visited[i] = true;
             }
         }
     }
+
+    for (int i = 0; i < g->numVertices; i++) {
+        free(matrix[i]);
+    }
+
+    free(matrix);
+
     fclose(fp);
 }
 
 void
-outputDFS(char *strOutputFileName, Graph g)
+outputDFS(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
 
