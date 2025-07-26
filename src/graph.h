@@ -9,7 +9,7 @@
 #include <string.h>
 
 /**
- * a Node structure for a doubly linked list implementation.
+ * Node structure for a singly linked list
  * @param name the node's unique identifier
  * @param next pointer to the next node in the linked list
  * @param nodeIndex the index of the node.

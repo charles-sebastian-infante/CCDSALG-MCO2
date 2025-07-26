@@ -7,6 +7,7 @@
 
 #include "output1-set.c"
 #include "output2-degree.c"
+#include "output3-bfs.c"
 
 /**
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
@@ -14,7 +15,8 @@
  * @param strOutputFileName The filename where the output will be stored
  * @param g The graph
  */
-void outputSet(char *strOutputFileName, Graph g)
+void
+outputSet(char *strOutputFileName, Graph g)
 {
     /* Getting the sorted list of vertices */
     char arrVertexIds[g.numVertices][9];
@@ -24,7 +26,8 @@ void outputSet(char *strOutputFileName, Graph g)
 
     /* Getting the sorted list of edges */
     int numEdges;
-    int maxEdges = g.numVertices * (g.numVertices - 1); /* maximum number of edges (including duplicates),
+    int maxEdges =
+        g.numVertices * (g.numVertices - 1); /* maximum number of edges (including duplicates),
                                                            to be used in the array declaration */
     Edge arrOriginalEdges[maxEdges]; // original array of edges, which includes duplicate edges
 
@@ -34,7 +37,7 @@ void outputSet(char *strOutputFileName, Graph g)
 
     removeDuplicateEdges(arrOriginalEdges, arrEdges, &numEdges);
     sortEdges(arrEdges, numEdges);
-    
+
     /* Printing output to file */
     FILE *fp = fopen(strOutputFileName, "w");
 
@@ -75,7 +78,7 @@ void outputSet(char *strOutputFileName, Graph g)
  * @param strOutputFileName The filename where the output will be stored
  * @param g The graph
  */
-void 
+void
 outputDegree(char *strOutputFileName, Graph g)
 {
     /* Getting the sorted list of vertices */
@@ -97,76 +100,123 @@ outputDegree(char *strOutputFileName, Graph g)
     fclose(fp);
 }
 
-void 
+void
 outputAdjacencyList(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
     // traverse the linked list, print every Node until null.
-    for (int i = 0; i < g->numVertices; i++){
+    for (int i = 0; i < g->numVertices; i++) {
         Node *current = g->adjacencyList[i];
-            while (current != NULL) {
+        while (current != NULL) {
             fprintf(fp, "%s->", current->name);
             current = current->next;
         }
-    fprintf(fp, "\\\n");
+        fprintf(fp, "\\\n");
     }
 
     fclose(fp);
 }
 
-void 
+bool **
+createAdjacencyMatrix(Graph *g)
+{
+    int numVertex = g->numVertices;
+
+    // populate matrix with 0s
+    bool **matrix = calloc(sizeof(bool *), numVertex);
+
+    for (int i = 0; i < numVertex; i++) {
+        matrix[i] = calloc(sizeof(bool), numVertex);
+    }
+
+    // populate matrix with necessary values
+    for (int i = 0; i < numVertex; i++) {
+        Node *current = g->adjacencyList[i];
+
+        // note that since the initial node is itself, there will never be an edge from self-self.
+        while (current->next != NULL) {
+            current = current->next;
+            matrix[i][current->nodeIndex] = true;
+        }
+    }
+
+    // return matrix
+    return matrix;
+}
+
+void
 outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
 
     int numVertex = g->numVertices;
 
-    // populate matrix with 0s
-    bool** matrix = calloc(sizeof(bool*), numVertex);
+    bool **matrix = createAdjacencyMatrix(g);
 
-    for (int i = 0; i < numVertex; i++){
-        matrix[i] = calloc(sizeof(bool), numVertex);
+    fprintf(fp, "%9s", " ");
+
+    for (int i = 0; i < g->numVertices; i++) {
+        fprintf(fp, "%9s", g->adjacencyList[i]->name);
     }
-    
-    // populate matrix with necessary values
-    for (int i = 0; i < numVertex; i++){
-        Node *current = g->adjacencyList[i];
+    fprintf(fp, "\n");
 
-        // note that since the initial node is itself, there will never be an edge from self-self.
-        while (current->next != NULL){
-            current = current->next;
-            matrix[i][current->nodeIndex] = true;
-        } 
-    }
-
-
-   fprintf(fp, "%9s", " ");
-
-    for (int i = 0; i < g->numVertices; i++){
-       fprintf(fp, "%9s", g->adjacencyList[i]->name);
-    }
-   fprintf(fp, "\n");
-    
-    for (int i = 0; i < g->numVertices; i++){
-       fprintf(fp, "%9s", g->adjacencyList[i]->name);
-        for (int j = 0; j < g->numVertices; j++){
-           fprintf(fp, "%9d", matrix[i][j]);
+    for (int i = 0; i < g->numVertices; i++) {
+        fprintf(fp, "%9s", g->adjacencyList[i]->name);
+        for (int j = 0; j < g->numVertices; j++) {
+            fprintf(fp, "%9d", matrix[i][j]);
         }
-       fprintf(fp, "\n");
+        fprintf(fp, "\n");
     }
 
+    for (int i = 0; i < numVertex; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
 }
 
-void 
-outputBFS(char *strOutputFileName, Graph g)
+void
+outputBFS(char *strOutputFileName, int startVertex, Graph *g)
 {
+
     FILE *fp = fopen(strOutputFileName, "w");
+
+    bool *visited = calloc(g->numVertices, sizeof(bool));
+    // Create an array of boolean values where each index is the vertex number
+
+    // Create a queue to store all the unvisited indices
+    Queue *verticeQueue = createQueue();
+
+    // Create adjacency matrix so the BFS is in the right order
+    bool **matrix = createAdjacencyMatrix(g);
+
+    enqueue(verticeQueue, startVertex);
+    visited[startVertex] = true;
+
+    while (!isEmpty(verticeQueue)) {
+        int currentVertex = dequeue(verticeQueue);
+        Node *current = g->adjacencyList[currentVertex];
+        printf("[%s]", current->name);
+
+        // Add all unvisited neighbors to the queue
+        for (int i = 0; i < g->numVertices; i++) {
+            if (matrix[currentVertex][i] == true && !visited[i]) {
+                enqueue(verticeQueue, i);
+                visited[i] = true;
+            }
+        }
+    }
+
+    for (int i = 0; i < g->numVertices; i++) {
+        free(matrix[i]);
+    }
+
+    free(matrix);
 
     fclose(fp);
 }
 
-void 
-outputDFS(char *strOutputFileName, Graph g)
+void
+outputDFS(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
 

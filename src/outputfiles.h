@@ -5,8 +5,9 @@
 
 #ifndef OUTPUTFILES
 #define OUTPUTFILES
-#include <stdio.h>
 #include "graph.c"
+#include <stdio.h>
+
 
 #ifndef EDGE_DEFINED
 #define EDGE_DEFINED
@@ -55,15 +56,16 @@ void outputAdjacencyMatrix(char *strOutputFileName, Graph *g);
 /**
  * Writes the BFS traversal of a node from a graph to a file
  * @param strOutputFileName The filename where the output will be stored
+ * @param startIndex The index of the start node
  * @param g Graph to be outputted
  */
-void outputBFS(char *strOutputFileName, Graph g);
+void outputBFS(char *strOutputFileName, int startIndex, Graph *g);
 
 /**
  * Writes the DFS traversal of a node from a graph to a file
  * @param strOutputFileName The filename where the output will be stored
  * @param g Graph to be outputted
  */
-void outputDFS(char *strOutputFileName, Graph g);
+void outputDFS(char *strOutputFileName, Graph *g);
 
 #endif
