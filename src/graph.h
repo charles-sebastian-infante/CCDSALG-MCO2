@@ -3,10 +3,12 @@
  * Tested by: Charles Infante
  */
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
+
+#define MAX_VERTICES 20
 
 /**
  * Node structure for a singly linked list
@@ -23,11 +25,13 @@ typedef struct nodeTag {
 /**
  * an implementation of the Graph data structure
  * @param numVertices is the number of vertices or Nodes in the graph
- * @param adjacencyList 2D array of nodes
+ * @param adjacencyList Array of singly linked lists containing Nodes
+ * @param adjacencyMatrix A square 2D array of boolean values representing the graph
  */
-typedef struct graphTag{
+typedef struct graphTag {
     int numVertices;
-    Node** adjacencyList; 
+    Node **adjacencyList;
+    bool **adjacencyMatrix;
 } Graph;
 
 /**
@@ -35,13 +39,13 @@ typedef struct graphTag{
  * @param name string of the unique identifier
  * @return pointer to the created node if successful, NULL otherwise
  */
-Node * createNode(char *name);
+Node *createNode(char *name);
 /**
  * creates a graph with a specified number of vertices/nodes.
  * @param numVertices is the number of vertices in the graph.
  * @return a pointer to the created graph if successful, NULL otherwise
  */
-Graph * createGraph(int numVertices);
+Graph *createGraph(int numVertices);
 /**
  * creates a vertex in a specific graph with specific identifier.
  * @param g is a pointer to the graph where vertex is added

@@ -123,10 +123,10 @@ createAdjacencyMatrix(Graph *g)
     int numVertex = g->numVertices;
 
     // populate matrix with 0s
-    bool **matrix = calloc(sizeof(bool *), numVertex);
+    bool **matrix = calloc(numVertex, sizeof(bool *));
 
     for (int i = 0; i < numVertex; i++) {
-        matrix[i] = calloc(sizeof(bool), numVertex);
+        matrix[i] = calloc(numVertex, sizeof(bool));
     }
 
     // populate matrix with necessary values
@@ -151,7 +151,7 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 
     int numVertex = g->numVertices;
 
-    bool **matrix = createAdjacencyMatrix(g);
+    bool **matrix = g->adjacencyMatrix;
 
     fprintf(fp, "%9s", " ");
 
@@ -195,7 +195,7 @@ outputBFS(char *strOutputFileName, int startVertex, Graph *g)
     while (!isEmpty(verticeQueue)) {
         int currentVertex = dequeue(verticeQueue);
         Node *current = g->adjacencyList[currentVertex];
-        printf("[%s]", current->name);
+        fprintf(fp, "%s ", current->name);
 
         // Add all unvisited neighbors to the queue
         for (int i = 0; i < g->numVertices; i++) {
@@ -211,6 +211,7 @@ outputBFS(char *strOutputFileName, int startVertex, Graph *g)
     }
 
     free(matrix);
+    free(verticeQueue);
 
     fclose(fp);
 }
@@ -219,6 +220,8 @@ void
 outputDFS(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
+
+
 
     fclose(fp);
 }

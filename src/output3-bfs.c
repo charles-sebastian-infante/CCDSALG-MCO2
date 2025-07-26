@@ -4,8 +4,6 @@
  */
 #include <stdbool.h>
 #include <stdio.h>
-#define MAX_VERTICES 20
-// TODO maybe move this to a different header
 
 // Queue of vertices using an array
 typedef struct {
