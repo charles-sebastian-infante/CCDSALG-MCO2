@@ -45,7 +45,7 @@ int main() {
 
     printf("Input start vertex for the traversal: ");
     scanf("%s", startVertex);
-    startVertexFound = true; // TODO make this based on BFS/DFS later
+    startVertexFound = findVertexIDFromName(startVertex, g) != -1;
 
     if (!startVertexFound) {
         printf("Vertex %s not found.", startVertex);

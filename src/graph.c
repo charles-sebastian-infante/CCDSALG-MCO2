@@ -1,10 +1,15 @@
 /**
- * Programmed by: Charles Infante
- * Tested by: Charles Infante
+ * Programmed by: Charles Infante, Christian Gendrano, Allen Hizon
+ * Tested by: Charles Infante, Christian Gendrano, Allen Hizon
  */
 
 #include "graph.h"
 
+/**
+ * creates a node with an identifier.
+ * @param name string of the unique identifier
+ * @return pointer to the created node if successful, NULL otherwise
+ */
 Node *
 createNode(char *name)
 {
@@ -24,6 +29,11 @@ createNode(char *name)
     return newNode;
 }
 
+/**
+ * creates a graph with a specified number of vertices/nodes.
+ * @param numVertices is the number of vertices in the graph.
+ * @return a pointer to the created graph if successful, NULL otherwise
+ */
 Graph *
 createGraph(int numVertices)
 {
@@ -53,6 +63,13 @@ createGraph(int numVertices)
     return g;
 }
 
+/**
+ * creates a vertex in a specific graph with specific identifier.
+ * @param g is a pointer to the graph where vertex is added
+ * @param vertex is the index of the adjacency list to add to
+ * @param name is the identifier of the vertex
+ * @return true if vertex was successfully created, false otherwise
+ */
 bool
 createVertex(Graph *g, int vertex, char *name)
 {
@@ -69,6 +86,13 @@ createVertex(Graph *g, int vertex, char *name)
     return true;
 }
 
+/**
+ * checks if a graph has an edge from one vertex to another.
+ * @param g is a pointer to the graph where both vertices are located
+ * @param startVertex is the index of the adjacency list to check
+ * @param name is the unique identifier of the terminal vertex to be checked
+ * @return true if an edge has been found, false otherwise
+ */
 bool
 hasEdge(Graph *g, int startVertex, char *name)
 {
@@ -84,6 +108,13 @@ hasEdge(Graph *g, int startVertex, char *name)
     return false;
 }
 
+/**
+ * adds an edge from one vertex to another
+ * @param g is a pointer to the graph to add a vertex.
+ * @param startVertex is the index of the destination adjacency list
+ * @param endName is the identifier of the Node to add
+ * @return true if the edge is successfully created, false otherwise.
+ */
 bool
 addEdge(Graph *g, int startVertex, char *endName)
 {
@@ -169,6 +200,14 @@ sortVertexIds(char arrVertexIds[][ID_LENGTH], int numVertexIds)
     }
 }
 
+/**
+ * This function finds the index of a vertex in the adjacency
+ * list from the vertex's name.
+ * 
+ * @param name String containing the name of the vertex
+ * @param g Pointer to the graph
+ * @return Index of the vertex
+ */
 int
 findVertexIDFromName(char *name, Graph *g)
 {
@@ -180,6 +219,13 @@ findVertexIDFromName(char *name, Graph *g)
     return -1;
 }
 
+/**
+ * Creates an adjacency matrix for a graph, provided that the
+ * graph already has a populated adjacency list.
+ * 
+ * @param g Pointer to the graph
+ * @return 2D bool array representing the adjacency matrix
+ */
 bool **
 createAdjacencyMatrix(Graph *g)
 {
@@ -207,6 +253,13 @@ createAdjacencyMatrix(Graph *g)
     return matrix;
 }
 
+/**
+ * Creates a sorted adjacency matrix for a graph, provided that
+ * the graph already has a populated adjacency list.
+ * 
+ * @param g Pointer to the graph
+ * @return 2D bool array representing the adjacency matrix
+ */
 bool **
 createSortedAdjacencyMatrix(Graph *g) {
     int numVertex = g->numVertices;
@@ -237,7 +290,7 @@ createSortedAdjacencyMatrix(Graph *g) {
 
     for (int i = 0; i < numVertex; i++) {
         int currentId = sortedIndices[i];
-        // populate matrix with necessary values using the sorted indice list
+        // populate matrix with necessary values using the sorted index list
         Node *current = g->adjacencyList[currentId];
         // note that since the initial node is itself, there will never be an edge from self-self.
         while (current->next != NULL) {
@@ -245,8 +298,15 @@ createSortedAdjacencyMatrix(Graph *g) {
             matrix[i][current->nodeIndex] = true;
         }
     }
+
+    return matrix;
 }
 
+/**
+ * Frees the dynamic memory allocated for the adjacency list of the graph.
+ * 
+ * @param g Pointer to the graph
+ */
 void
 freeAdjacencyList(Graph *g) {
     Node **list = g->adjacencyList;
@@ -268,6 +328,11 @@ freeAdjacencyList(Graph *g) {
     free(list); // freeing the memory for the pointer to the list
 }
 
+/**
+ * Frees the dynamic memory allocated for the adjacency matrix of the graph.
+ * 
+ * @param g Pointer to the graph
+ */
 void
 freeAdjacencyMatrix(Graph *g) {
     bool **matrix = g->adjacencyMatrix;
@@ -279,25 +344,3 @@ freeAdjacencyMatrix(Graph *g) {
 
     free(matrix);
 }
-
-/*
-// G.txt used for testing outputs
-// delete for final submission
-int main(){
-    Graph *g = createGraph(4);
-
-    createVertex(g, 0, "Diana");
-    createVertex(g, 1, "Bruce");
-    createVertex(g, 2, "Hal");
-    createVertex(g, 3, "Clark");
-    
-    addEdge(g,0,"Hal");
-    addEdge(g,0,"Bruce");
-    addEdge(g,0,"Clark");
-    addEdge(g,1,"Diana");
-    addEdge(g,2,"Clark");
-    addEdge(g,2,"Diana");
-    addEdge(g,3,"Hal");
-    addEdge(g,3,"Diana");
-}
-*/

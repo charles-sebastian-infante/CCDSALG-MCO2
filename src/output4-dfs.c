@@ -5,6 +5,16 @@
 #include "graph.h"
 #include <stdio.h>
 
+/**
+ * Performs a recursive depth-first search algorithm on a graph and
+ * outputs the results to a file.
+ * 
+ * @param fp Pointer to the output file
+ * @param g Pointer to the graph
+ * @param visited Bool array that represents whether or not a vertex
+ *                has been visited
+ * @param vertex Index of the vertex to possibly visit
+ */
 void
 recursiveDFS(FILE *fp, Graph *g, bool visited[], int vertex)
 {

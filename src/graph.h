@@ -1,7 +1,8 @@
 /**
- * Programmed by: Charles Infante
- * Tested by: Charles Infante
+ * Programmed by: Charles Infante, Christian Gendrano, Allen Hizon
+ * Tested by: Charles Infante, Christian Gendrano, Allen Hizon
  */
+
 #ifndef GRAPH_H
 
 #include <stdbool.h>
@@ -42,12 +43,14 @@ typedef struct graphTag {
  * @return pointer to the created node if successful, NULL otherwise
  */
 Node *createNode(char *name);
+
 /**
  * creates a graph with a specified number of vertices/nodes.
  * @param numVertices is the number of vertices in the graph.
  * @return a pointer to the created graph if successful, NULL otherwise
  */
 Graph *createGraph(int numVertices);
+
 /**
  * creates a vertex in a specific graph with specific identifier.
  * @param g is a pointer to the graph where vertex is added
@@ -56,6 +59,7 @@ Graph *createGraph(int numVertices);
  * @return true if vertex was successfully created, false otherwise
  */
 bool createVertex(Graph *g, int vertex, char *name);
+
 /**
  * checks if a graph has an edge from one vertex to another.
  * @param g is a pointer to the graph where both vertices are located
@@ -64,6 +68,7 @@ bool createVertex(Graph *g, int vertex, char *name);
  * @return true if an edge has been found, false otherwise
  */
 bool hasEdge(Graph *g, int startVertex, char *name);
+
 /**
  * adds an edge from one vertex to another
  * @param g is a pointer to the graph to add a vertex.
@@ -98,20 +103,41 @@ void swapStrings(char a[], char b[]);
  */
 void sortVertexIds(char arrVertexIds[][ID_LENGTH], int numVertexIds);
 
-    /**
+/**
+ * This function finds the index of a vertex in the adjacency
+ * list from the vertex's name.
+ * 
+ * @param name String containing the name of the vertex
+ * @param g Pointer to the graph
+ * @return Index of the vertex
+ */
+int findVertexIDFromName(char *name, Graph *g);
+
+/**
  * Creates an adjacency matrix for a graph, provided that the
  * graph already has a populated adjacency list.
  * 
  * @param g Pointer to the graph
  * @return 2D bool array representing the adjacency matrix
  */
-    bool **createAdjacencyMatrix(Graph *g);
+bool **createAdjacencyMatrix(Graph *g);
+
+/**
+ * Creates a sorted adjacency matrix for a graph, provided that
+ * the graph already has a populated adjacency list.
+ * 
+ * @param g Pointer to the graph
+ * @return 2D bool array representing the adjacency matrix
+ */
+bool **createSortedAdjacencyMatrix(Graph *g);
+
 /**
  * Frees the dynamic memory allocated for the adjacency list of the graph.
  * 
  * @param g Pointer to the graph
  */
 void freeAdjacencyList(Graph *g);
+
 /**
  * Frees the dynamic memory allocated for the adjacency matrix of the graph.
  * 

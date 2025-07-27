@@ -76,7 +76,6 @@ bool readInputFile(char strInputFileName[], Graph **g) {
     }
 
     // now, creating the adjacency matrix part of the graph
-
     (*g)->adjacencyMatrix = createAdjacencyMatrix(*g);
 
     return true;
