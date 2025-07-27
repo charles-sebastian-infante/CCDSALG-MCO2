@@ -5,6 +5,7 @@
 
 #include "output1-set.c"
 #include "reader.c"
+#include "graph.c"
 
 int main() {
     // input data for graph 1

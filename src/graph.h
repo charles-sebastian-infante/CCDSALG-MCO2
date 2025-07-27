@@ -71,6 +71,14 @@ bool hasEdge(Graph *g, int startVertex, char *name);
  * @return true if the edge is successfully created, false otherwise.
  */
 bool addEdge(Graph *g, int startVertex, char *endName);
+/**
+ * This function creates an adjacency matrix for a graph, provided that the
+ * graph already has a populated adjacency list.
+ * 
+ * @param g Pointer to the graph
+ * @return 2D bool array representing the adjacency matrix
+ */
+bool **createAdjacencyMatrix(Graph *g);
 
 #define GRAPH_H
 #endif

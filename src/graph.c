@@ -114,6 +114,33 @@ addEdge(Graph *g, int startVertex, char *endName)
     return true;
 }
 
+bool **
+createAdjacencyMatrix(Graph *g)
+{
+    int numVertex = g->numVertices;
+
+    // populate matrix with 0s
+    bool **matrix = calloc(numVertex, sizeof(bool *));
+
+    for (int i = 0; i < numVertex; i++) {
+        matrix[i] = calloc(numVertex, sizeof(bool));
+    }
+
+    // populate matrix with necessary values
+    for (int i = 0; i < numVertex; i++) {
+        Node *current = g->adjacencyList[i];
+
+        // note that since the initial node is itself, there will never be an edge from self-self.
+        while (current->next != NULL) {
+            current = current->next;
+            matrix[i][current->nodeIndex] = true;
+        }
+    }
+
+    // return matrix
+    return matrix;
+}
+
 /*
 // G.txt used for testing outputs
 // delete for final submission

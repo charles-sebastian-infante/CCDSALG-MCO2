@@ -61,11 +61,12 @@ void outputAdjacencyMatrix(char *strOutputFileName, Graph *g);
  */
 void outputBFS(char *strOutputFileName, Graph *g, char *vertex);
 
+/*
 /**
  * Writes the DFS traversal of a node from a graph to a file
  * @param strOutputFileName The filename where the output will be stored
  * @param g Graph to be outputted
- */
-void outputDFS(char *strOutputFileName, Graph *g);
+ *
+void outputDFS(char *strOutputFileName, Graph *g);*/
 
 #endif
