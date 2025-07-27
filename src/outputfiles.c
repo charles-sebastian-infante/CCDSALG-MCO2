@@ -135,8 +135,6 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
 
-    int numVertex = g->numVertices;
-
     bool **matrix = g->adjacencyMatrix;
 
     fprintf(fp, "%9s", " ");
@@ -168,7 +166,8 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 {
 
     FILE *fp = fopen(strOutputFileName, "w");
-    int startVertex = findVertexIDFromName(vertex, g);
+    int startVertex = g->mapUnsortedToSorted[findVertexIDFromName(vertex, g)];
+    // use mapUnsortedToSorted to get the right starting value in the sorted adjacency matrix
 
     bool *visited = calloc(g->numVertices, sizeof(bool));
     // Create an array of boolean values where each index is the vertex number
@@ -177,14 +176,15 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
     Queue *vertexQueue = createQueue();
 
     // Use adjacency matrix so the BFS is in the right order
-    bool **matrix = g->adjacencyMatrix;
+    bool **matrix = createSortedAdjacencyMatrix(g);
 
     enqueue(vertexQueue, startVertex);
     visited[startVertex] = true;
 
     while (!isEmpty(vertexQueue)) {
         int currentVertex = dequeue(vertexQueue);
-        Node *current = g->adjacencyList[currentVertex];
+        Node *current = g->adjacencyList[g->mapSortedToUnsorted[currentVertex]];
+        // use mapSortedToUnsorted to get the right name from the adjacency list
         fprintf(fp, "%s ", current->name);
 
         // Add all unvisited neighbors to the queue
@@ -197,6 +197,7 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
     }
 
     free(vertexQueue);
+    freeAdjacencyMatrix(matrix);
     fclose(fp);
 }
 
@@ -212,15 +213,17 @@ void
 outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 {
     FILE *fp = fopen(strOutputFileName, "w");
-    int startVertex = findVertexIDFromName(vertex, g);
+    int startVertex = g->mapUnsortedToSorted[findVertexIDFromName(vertex, g)];
+    // use mapUnsortedToSorted to get the right starting value in the sorted adjacency matrix
 
     bool *visited = calloc(g->numVertices, sizeof(bool));
     // Create an array of boolean values where each index is the vertex number
 
     // Use adjacency matrix so the DFS is in the right order
-    bool **matrix = g->adjacencyMatrix;
+    bool **matrix = createSortedAdjacencyMatrix(g);
 
-    recursiveDFS(fp, g, visited, startVertex);
+    recursiveDFS(fp, g, matrix, visited, startVertex);
 
+    freeAdjacencyMatrix(matrix);
     fclose(fp);
 }

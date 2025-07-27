@@ -94,8 +94,8 @@ dequeue(Queue *q)
     q->front++;
 
     if (isEmpty(q)) {
-        q->front == 0;
-        q->rear == 0;
+        q->front = 0;
+        q->rear = 0;
         // Reset to 0 so front and rear don't get too big when the queue is emptied
     }
     

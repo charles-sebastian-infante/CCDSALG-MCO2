@@ -59,7 +59,6 @@ createGraph(int numVertices)
     for (int i = 0; i < numVertices; i++) {
         g->adjacencyList[i] = NULL;
     }
-
     return g;
 }
 
@@ -282,7 +281,7 @@ createSortedAdjacencyMatrix(Graph *g) {
         sortedIndices[i] = findVertexIDFromName(vertexIds[i], g);
     }
 
-    // create a mapping from sorted to the original indices (used to sort the columsn of the adjacency matrix)
+    // create a mapping from sorted to the original indices (used to sort the columns of the adjacency matrix)
     int reversedIndices[numVertex];
     for (int i = 0; i < numVertex; i++) {
         int original = sortedIndices[i];

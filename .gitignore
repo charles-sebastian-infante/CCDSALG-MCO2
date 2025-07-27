@@ -6,5 +6,6 @@
 .vscode/tasks.json
 *.txt
 
-# Ignore clang-format
+# Ignore clang-format and makefile
 *.clang-format
+src/makefile
