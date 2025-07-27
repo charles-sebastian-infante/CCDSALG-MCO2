@@ -1,9 +1,12 @@
 #include "../src/graph.c"
 #include <time.h>
 
-#define VERTEX_FILENAME "names.txt" // filename of the list of vertex names
-#define OUTPUT_GRAPH_NAME 'E' // name of output graph (preferably one letter)
-#define PERCENT 0 // percent chance that an edge connects any two vertices
+/* Note: Despite the name of the file, this actually generates a graph that the original graph is a subgraph of
+         (as opposed to a graph that is a subgraph of the original graph) */
+
+#define INPUT_GRAPH_NAME 'A' // name of input graph (preferably one letter) - don't include .txt
+#define OUTPUT_GRAPH_NAME 'C' // name of output graph (preferably one letter)
+#define PERCENT 25 // percent chance that an edge connects any two vertices that were previously not connected
 
 int getRandNum(int min, int max) {
     return rand() % (max - min + 1) + min;
@@ -15,6 +18,16 @@ int getRandArrayIndex(int n) {
 
 bool percentChance(int percent) {
     return getRandNum(1, 100) <= percent;
+}
+
+int convertNameToIndex(char name[], char nameArray[][9], int n) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp(name, nameArray[i]) == 0) {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 void resetBoolArray(bool arr[], int n) {
@@ -34,46 +47,62 @@ bool isArrayAllTrue(bool arr[], int n) {
 }
 
 int main() {
+    if (INPUT_GRAPH_NAME == OUTPUT_GRAPH_NAME) {
+        printf("Error: Input and output graph names should be different!");
+        return 1;
+    }
+
     srand(time(NULL)); // for random numbers
 
-    FILE *fp = fopen(VERTEX_FILENAME, "r");
+    char inputFilename[] = "#.TXT";
+    inputFilename[0] = INPUT_GRAPH_NAME;
+
+    FILE *fp = fopen(inputFilename, "r");
 
     if (fp == NULL) {
         printf("Error reading the file for input\n");
         return 1;
     }
-    
-    // just counting the number of lines in the file
-    char buffer[200];
 
-    int numVertices = 0;
-    while (fgets(buffer, 200, fp) != NULL) {
-        numVertices++;
-
-        if (strcmp(buffer, "") == 0) {
-            printf("Empty line found\n");
-            numVertices--;
-        }
-    }
-    printf("Number of vertices: %d", numVertices);
-
-    rewind(fp); // go back to start of file
+    int numVertices;
+    fscanf(fp, "%d", &numVertices);
 
     char vertexNameArray[numVertices][9];
+    char buffer[400];
 
     for (int i = 0; i < numVertices; i++) {
         fscanf(fp, "%s", vertexNameArray[i]);
+        fgets(buffer, 400, fp); // just go to next line
+    }
+
+    rewind(fp);
+    fgets(buffer, 400, fp); // ignore first line (number of vertices)
+
+    bool adjacencyMatrix[numVertices][numVertices];
+
+    // initializing everything to false at first
+    for (int i = 0; i < numVertices; i++) {
+        resetBoolArray(adjacencyMatrix[i], numVertices);
+    }
+
+    char vertexName[9];
+    for (int i = 0; i < numVertices; i++) {
+        do {
+            fscanf(fp, "%s", vertexName);
+
+            if (strcmp(vertexName, vertexNameArray[i]) != 0 && strcmp(vertexName, "-1") != 0) {
+                int index = convertNameToIndex(vertexName, vertexNameArray, numVertices);
+                adjacencyMatrix[i][index] = true;
+            }
+        } while (strcmp(vertexName, "-1") != 0);
     }
 
     fclose(fp);
 
-    bool adjacencyMatrix[numVertices][numVertices];
-
     for (int i = 0; i < numVertices; i++) {
         for (int j = 0; j < numVertices; j++) {
-            if (i == j) {
-                adjacencyMatrix[i][j] = 0;
-            } else if (i > j) { // prevents redundancy
+            if (i > j && adjacencyMatrix[i][j] == false) {
+                // adding some edges but not removing any
                 bool randBool = percentChance(PERCENT);
                 adjacencyMatrix[i][j] = randBool;
                 adjacencyMatrix[j][i] = randBool;
