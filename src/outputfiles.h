@@ -26,7 +26,7 @@ typedef struct {
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
  * 
  * @param strOutputFileName The filename where the output will be stored
- * @param g The graph
+ * @param g Pointer to the graph to be outputted
  */
 void outputSet(char *strOutputFileName, Graph g);
 
@@ -34,38 +34,44 @@ void outputSet(char *strOutputFileName, Graph g);
  * Produces output file #2, which contains the list of vertex IDs and their corresponding degrees.
  * 
  * @param strOutputFileName The filename where the output will be stored
- * @param g The graph
+ * @param g Pointer to the graph to be outputted
  */
 void outputDegree(char *strOutputFileName, Graph g);
 
 /**
- * Writes the adjacency lists of a graph to a file
+ * Produces output file #3, which contains the adjacency list representation of the graph.
+ * 
  * @param strOutputFileName The filename where the output will be stored
- * @param g Graph to be outputted
+ * @param g Pointer to the graph to be outputted
  */
 void outputAdjacencyList(char *strOutputFileName, Graph *g);
 
 /**
- * Writes an adjacency matrix of a graph to a file
+ * Produces output file #4, which contains the adjacency matrix representation of the graph.
+ * 
  * @param strOutputFileName The filename where the output will be stored
- * @param g Graph to be outputted
+ * @param g Pointer to the graph to be outputted
  */
 void outputAdjacencyMatrix(char *strOutputFileName, Graph *g);
 
 /**
- * Writes the BFS traversal of a node from a graph to a file
+ * Produces output file #5, which contains the BFS traversal of the graph starting
+ * from a given vertex.
+ * 
  * @param strOutputFileName The filename where the output will be stored
- * @param g Graph to be outputted
- * @param vertex The start vertex
+ * @param g Pointer to the graph to be outputted
+ * @param vertex String containing the ID of the start vertex
  */
 void outputBFS(char *strOutputFileName, Graph *g, char *vertex);
 
 /**
- * Writes the DFS traversal of a node from a graph to a file
+ * Produces output file #6, which contains the DFS traversal of the graph starting
+ * from a given vertex.
+ * 
  * @param strOutputFileName The filename where the output will be stored
- * @param g Graph to be outputted
- *
- * */
+ * @param g Pointer to the graph to be outputted
+ * @param vertex String containing the ID of the start vertex
+ */
 void outputDFS(char *strOutputFileName, Graph *g, char *vertex);
 
 #endif
