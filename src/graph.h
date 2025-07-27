@@ -10,6 +10,7 @@
 #include <string.h>
 
 #define MAX_VERTICES 20
+#define ID_LENGTH 9
 
 /**
  * Node structure for a singly linked list
@@ -71,14 +72,40 @@ bool hasEdge(Graph *g, int startVertex, char *name);
  * @return true if the edge is successfully created, false otherwise.
  */
 bool addEdge(Graph *g, int startVertex, char *endName);
+
 /**
- * This function creates an adjacency matrix for a graph, provided that the
+ * Gets vertex IDs from a graph and adds them to an array of strings.
+ * 
+ * @param g The graph to get the vertex IDs from
+ * @param arrVertexIds The array of strings where the vertex IDs will go
+ */
+void getVertexIds(Graph g, char arrVertexIds[][ID_LENGTH]);
+
+/**
+ * Swaps two strings. Note that this can only swap strings with a maximum
+ * length of 8 characters.
+ * 
+ * @param a The first string to be swapped
+ * @param b The second string to be swapped
+ */
+void swapStrings(char a[], char b[]);
+
+/**
+ * Sorts the vertex IDs in alphabetical order.
+ * 
+ * @param arrVertexIds The array of vertex IDs
+ * @param nVertexIds The number of vertex IDs in the array
+ */
+void sortVertexIds(char arrVertexIds[][ID_LENGTH], int numVertexIds);
+
+    /**
+ * Creates an adjacency matrix for a graph, provided that the
  * graph already has a populated adjacency list.
  * 
  * @param g Pointer to the graph
  * @return 2D bool array representing the adjacency matrix
  */
-bool **createAdjacencyMatrix(Graph *g);
+    bool **createAdjacencyMatrix(Graph *g);
 /**
  * Frees the dynamic memory allocated for the adjacency list of the graph.
  * 

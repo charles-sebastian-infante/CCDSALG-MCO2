@@ -101,6 +101,12 @@ outputDegree(char *strOutputFileName, Graph g)
     fclose(fp);
 }
 
+/**
+ * Produces output file #3, which contains the adjacency list representation of the graph.
+ * 
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
+ */
 void
 outputAdjacencyList(char *strOutputFileName, Graph *g)
 {
@@ -118,6 +124,12 @@ outputAdjacencyList(char *strOutputFileName, Graph *g)
     fclose(fp);
 }
 
+/**
+ * Produces output file #4, which contains the adjacency matrix representation of the graph.
+ * 
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
+ */
 void
 outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 {
@@ -143,17 +155,12 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
     }
 }
 
-int
-findVertexIDFromName(char *name, Graph *g)
-{
-    for (int i = 0; i < g->numVertices; i++) {
-        if (strcmp(g->adjacencyList[i]->name, name) == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
-
+/**
+ * Produces output file #5, which contains the BFS traversal of the graph.
+ * 
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
+ */
 void
 outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 {
@@ -191,7 +198,12 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
     fclose(fp);
 }
 
-
+/**
+ * Produces output file #6, which contains the DFS traversal of the graph.
+ * 
+ * @param strOutputFileName The filename where the output will be stored
+ * @param g The graph
+ */
 void
 outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 {
@@ -203,7 +215,7 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 
     // Use adjacency matrix so the DFS is in the right order
     bool **matrix = g->adjacencyMatrix;
-    
+
     recursiveDFS(fp, g, visited, startVertex);
 
     fclose(fp);

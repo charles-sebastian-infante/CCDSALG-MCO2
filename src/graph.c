@@ -114,6 +114,72 @@ addEdge(Graph *g, int startVertex, char *endName)
     return true;
 }
 
+/**
+ * Gets vertex IDs from a graph and adds them to an array of strings.
+ * 
+ * @param g The graph to get the vertex IDs from
+ * @param arrVertexIds The array of strings where the vertex IDs will go
+ */
+void
+getVertexIds(Graph g, char arrVertexIds[][ID_LENGTH])
+{
+    for (int i = 0; i < g.numVertices; i++) {
+        strcpy(arrVertexIds[i], g.adjacencyList[i]->name);
+    }
+}
+
+/**
+ * Swaps two strings. Note that this can only swap strings with a maximum
+ * length of 8 characters.
+ * 
+ * @param a The first string to be swapped
+ * @param b The second string to be swapped
+ */
+void
+swapStrings(char a[], char b[])
+{
+    char temp[9];
+    strcpy(temp, a);
+    strcpy(a, b);
+    strcpy(b, temp);
+}
+
+/**
+ * Sorts the vertex IDs in alphabetical order.
+ * 
+ * @param arrVertexIds The array of vertex IDs
+ * @param nVertexIds The number of vertex IDs in the array
+ */
+void
+sortVertexIds(char arrVertexIds[][ID_LENGTH], int numVertexIds)
+{
+    // selection sort
+    int i, j, minIndex;
+
+    for (i = 0; i < numVertexIds - 1; i++) {
+        minIndex = i;
+
+        for (j = i + 1; j < numVertexIds; j++) {
+            if (strcmp(arrVertexIds[j], arrVertexIds[minIndex]) < 0) {
+                minIndex = j;
+            }
+        }
+
+        swapStrings(arrVertexIds[i], arrVertexIds[minIndex]);
+    }
+}
+
+int
+findVertexIDFromName(char *name, Graph *g)
+{
+    for (int i = 0; i < g->numVertices; i++) {
+        if (strcmp(g->adjacencyList[i]->name, name) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 bool **
 createAdjacencyMatrix(Graph *g)
 {
@@ -139,6 +205,46 @@ createAdjacencyMatrix(Graph *g)
 
     // return matrix
     return matrix;
+}
+
+bool **
+createSortedAdjacencyMatrix(Graph *g) {
+    int numVertex = g->numVertices;
+
+    // populate matrix with 0s
+    bool **matrix = calloc(numVertex, sizeof(bool *));
+
+    for (int i = 0; i < numVertex; i++) {
+        matrix[i] = calloc(numVertex, sizeof(bool));
+    }
+
+    // create an array of vertex IDs to sort them
+    char vertexIds[numVertex][ID_LENGTH];
+
+    getVertexIds(*g, vertexIds);
+    sortVertexIds(vertexIds, g->numVertices);
+
+    // turn the sorted IDs into an array of their indices
+    int sortedIndices[numVertex];
+    for (int i = 0; i < numVertex; i++) {
+        sortedIndices[i] = findVertexIDFromName(vertexIds[i], g);
+    }
+
+    printf("Printing sorted list\n");
+    for (int i = 0; i < numVertex; i++) {
+        printf("[%s][%d]\n", vertexIds[i], sortedIndices[i]);
+    }
+
+    for (int i = 0; i < numVertex; i++) {
+        int currentId = sortedIndices[i];
+        // populate matrix with necessary values using the sorted indice list
+        Node *current = g->adjacencyList[currentId];
+        // note that since the initial node is itself, there will never be an edge from self-self.
+        while (current->next != NULL) {
+            current = current->next;
+            matrix[i][current->nodeIndex] = true;
+        }
+    }
 }
 
 void

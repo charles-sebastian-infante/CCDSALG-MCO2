@@ -22,55 +22,6 @@ typedef struct {
 #endif
 
 /**
- * Gets vertex IDs from a graph and adds them to an array of strings.
- * 
- * @param g The graph to get the vertex IDs from
- * @param arrVertexIds The array of strings where the vertex IDs will go
- */
-void getVertexIds(Graph g, char arrVertexIds[][9]) {
-    for (int i = 0; i < g.numVertices; i++) {
-        strcpy(arrVertexIds[i], g.adjacencyList[i]->name);
-    }
-}
-
-/**
- * Swaps two strings. Note that this can only swap strings with a maximum
- * length of 8 characters.
- * 
- * @param a The first string to be swapped
- * @param b The second string to be swapped
- */
-void swapStrings(char a[], char b[]) {
-    char temp[9];
-    strcpy(temp, a);
-    strcpy(a, b);
-    strcpy(b, temp);
-}
-
-/**
- * Sorts the vertex IDs in alphabetical order.
- * 
- * @param arrVertexIds The array of vertex IDs
- * @param nVertexIds The number of vertex IDs in the array
- */
-void sortVertexIds(char arrVertexIds[][9], int numVertexIds) {
-    // selection sort
-    int i, j, minIndex;
-
-    for (i = 0; i < numVertexIds - 1; i++) {
-        minIndex = i;
-
-        for (j = i + 1; j < numVertexIds; j++) {
-            if (strcmp(arrVertexIds[j], arrVertexIds[minIndex]) < 0) {
-                minIndex = j;
-            }
-        }
-
-        swapStrings(arrVertexIds[i], arrVertexIds[minIndex]);
-    }
-}
-
-/**
  * Gets edges from a graph and adds them to an array of edges.
  * 
  * @param g The graph to get the edges from
