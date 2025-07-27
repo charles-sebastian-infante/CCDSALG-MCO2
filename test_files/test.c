@@ -1,9 +1,7 @@
 #include "../src/outputfiles.c"
 #include "../src/reader.c"
-#include "../test_functions/graph-printing.c"
 
 int main() {
-    /*
     Graph *g = createGraph(4);
 
     createVertex(g, 0, "Diana");
@@ -19,15 +17,13 @@ int main() {
     addEdge(g,2,"Diana");
     addEdge(g,3,"Hal");
     addEdge(g,3,"Diana");
-    */
 
-    Graph *g;
-    readInputFile("../text_files/G.txt", &g);
+    g->adjacencyMatrix = createAdjacencyMatrix(g);
 
     outputAdjacencyList("G-LIST.TXT", g);
     outputAdjacencyMatrix("G-MATRIX.TXT", g);
     outputSet("G-SET.TXT", *g);
     outputDegree("G-DEGREE.TXT", *g);
     outputBFS("G-BFS.TXT", g, "Clark");
-    printGraph(*g);
+    outputDFS("G-DFS.TXT", g, "Clark");
 }

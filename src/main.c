@@ -49,7 +49,7 @@ int main() {
             printf("Vertex %s not found.", startVertex);
         } else {
             outputBFS(output5FileName, g, startVertex);
-            // TODO put DFS here
+            outputDFS(output6FileName, g, startVertex);
         }
     }
     
