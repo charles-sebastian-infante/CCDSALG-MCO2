@@ -220,7 +220,6 @@ createSortedAdjacencyMatrix(Graph *g) {
 
     // create an array of vertex IDs to sort them
     char vertexIds[numVertex][ID_LENGTH];
-
     getVertexIds(*g, vertexIds);
     sortVertexIds(vertexIds, g->numVertices);
 
@@ -230,9 +229,11 @@ createSortedAdjacencyMatrix(Graph *g) {
         sortedIndices[i] = findVertexIDFromName(vertexIds[i], g);
     }
 
-    printf("Printing sorted list\n");
+    // create a mapping from sorted to the original indices (used to sort the columsn of the adjacency matrix)
+    int reversedIndices[numVertex];
     for (int i = 0; i < numVertex; i++) {
-        printf("[%s][%d]\n", vertexIds[i], sortedIndices[i]);
+        int original = sortedIndices[i];
+        reversedIndices[original] = i;
     }
 
     for (int i = 0; i < numVertex; i++) {
@@ -242,9 +243,13 @@ createSortedAdjacencyMatrix(Graph *g) {
         // note that since the initial node is itself, there will never be an edge from self-self.
         while (current->next != NULL) {
             current = current->next;
-            matrix[i][current->nodeIndex] = true;
+            int originalColumn = current->nodeIndex;
+            int sortedColumn = reversedIndices[originalColumn];
+            matrix[i][sortedColumn] = true;
         }
     }
+
+    return matrix;
 }
 
 void
