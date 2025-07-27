@@ -21,13 +21,13 @@ createStack()
 }
 
 bool
-isFull(Stack *s)
+isStackFull(Stack *s)
 {
     return s->top >= MAX_VERTICES - 1;
 }
 
 bool
-isEmpty(Stack *s)
+isStackEmpty(Stack *s)
 {
     return s->top == -1;
 }
@@ -35,8 +35,9 @@ isEmpty(Stack *s)
 void
 push(Stack *s, int value)
 {
-    if (isFull(s)) {
-        printf("The stack is full.") return;
+    if (isStackFull(s)) {
+        printf("The stack is full.");
+        return;
     }
     s->top++;
     s->vertices[s->top] = value;
@@ -45,7 +46,7 @@ push(Stack *s, int value)
 int
 pop(Stack *s)
 {
-    if (isEmpty(s)) {
+    if (isStackEmpty(s)) {
         printf("The stack is empty.");
         return -1;
     }
@@ -53,4 +54,11 @@ pop(Stack *s)
     int value = s->vertices[s->top];
     s->top--;
     return value;
+}
+
+void
+printStack(Stack *s) {
+    for (int i = s->top; i > 0; i--) {
+        printf("[%d]\n", s->vertices[s->top]);
+    }
 }
