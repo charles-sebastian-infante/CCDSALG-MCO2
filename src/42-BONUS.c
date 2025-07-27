@@ -19,7 +19,7 @@ int main() {
 
     if (!graph1FileRead) {
         printf("File %s not found.", graph1FileName);
-        return 1;
+        return 0;
     }
 
     char graph1Name = graph1FileName[0]; // graph name is the first character of the filename
@@ -35,7 +35,7 @@ int main() {
 
     if (!graph2FileRead) {
         printf("File %s not found.", graph2FileName);
-        return 1;
+        return 0;
     }
 
     char graph2Name = graph2FileName[0];
@@ -169,7 +169,7 @@ int main() {
     }
 
     fclose(fp);
-    
+
     freeAdjacencyList(graph1);
     freeAdjacencyList(graph2);
     freeAdjacencyMatrix(graph1);
