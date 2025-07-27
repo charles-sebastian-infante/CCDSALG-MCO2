@@ -39,7 +39,6 @@ int main() {
         outputDegree(output2FileName, *g);           // output 2
         outputAdjacencyList(output3FileName, g);       // output 3
         outputAdjacencyMatrix(output4FileName, g);   // output 4
-        
         char startVertex[9];
 
         printf("Input start vertex for the traversal: ");
@@ -49,7 +48,7 @@ int main() {
         if (!startVertexFound) {
             printf("Vertex %s not found.", startVertex);
         } else {
-            // TODO put BFS here
+            outputBFS(output5FileName, g, startVertex);
             // TODO put DFS here
         }
     }

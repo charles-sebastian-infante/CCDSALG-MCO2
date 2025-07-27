@@ -7,7 +7,7 @@
 #include "output1-set.c"
 #include "output2-degree.c"
 #include "output3-bfs.c"
-// #include "output4-dfs.c"
+#include "output4-dfs.c"
 #include "outputfiles.h"
 
 /**
@@ -151,7 +151,6 @@ findVertexIDFromName(char *name, Graph *g)
             return i;
         }
     }
-
     return -1;
 }
 
@@ -161,56 +160,62 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 
     FILE *fp = fopen(strOutputFileName, "w");
     int startVertex = findVertexIDFromName(vertex, g);
+    printf("Starts at vertex %d", startVertex);
 
     bool *visited = calloc(g->numVertices, sizeof(bool));
     // Create an array of boolean values where each index is the vertex number
 
     // Create a queue to store all the unvisited indices
-    Queue *verticeQueue = createQueue();
+    Queue *vertexQueue = createQueue();
 
     // Use adjacency matrix so the BFS is in the right order
     bool **matrix = g->adjacencyMatrix;
 
-    enqueue(verticeQueue, startVertex);
+    enqueue(vertexQueue, startVertex);
     visited[startVertex] = true;
 
-    while (!isEmpty(verticeQueue)) {
-        int currentVertex = dequeue(verticeQueue);
+    while (!isEmpty(vertexQueue)) {
+        int currentVertex = dequeue(vertexQueue);
         Node *current = g->adjacencyList[currentVertex];
         fprintf(fp, "%s ", current->name);
 
         // Add all unvisited neighbors to the queue
         for (int i = 0; i < g->numVertices; i++) {
             if (matrix[currentVertex][i] == true && !visited[i]) {
-                enqueue(verticeQueue, i);
+                enqueue(vertexQueue, i);
                 visited[i] = true;
             }
         }
     }
 
-    free(verticeQueue);
-
+    free(vertexQueue);
     fclose(fp);
 }
 
-/*
+
 void
 recursiveDFS(Graph *g, Stack *s, bool visited[], int vertex)
 {
+
+    printf("[%s]", g->adjacencyList[vertex]->name);
+    visited[vertex] = true;
+
     int i = 0;
 
-    while (adjacencyMatrix[vertex][i] != true || !visite)
-
-    for (int i = 0; i < g->numVertices; i++) {
-        if (adjacencyMatrix[vertex][i] == true && !visited[i]) {
-            push(s, i);
-            recursiveDFS(g, s,)
-        }
+    while((g->adjacencyMatrix[vertex][i] == false || visited[i]) && i < MAX_VERTICES) {
+        i++;
     }
 
-} */
+    if (i == MAX_VERTICES) {
+        // no vertex found
+        return;
+    }
+    else {
+        recursiveDFS(g, s, visited, i);
+    }
+}
 
-/*
+
 void
 outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 {
@@ -224,8 +229,13 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
     bool **matrix = g->adjacencyMatrix;
 
     // Create a stack to store all the indices
-    Stack *verticeStack = createStack();
+    Stack *vertexStack = createStack();
+    
+    recursiveDFS(g, vertexStack, visited, startVertex);
 
+    while (!isStackEmpty(vertexStack)) {
+        recursiveDFS(g, vertexStack, visited, pop(vertexStack));
+    }
 
     fclose(fp);
-} */
+}
