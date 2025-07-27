@@ -1,7 +1,0 @@
-/**
- * Programmed by: Allen Hizon
- * Tested by: Allen Hizon
- */
-#include <stdbool.h>
-#include <stdio.h>
-#define MAX_VERTICES 20

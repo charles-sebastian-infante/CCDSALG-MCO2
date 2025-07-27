@@ -3,9 +3,6 @@
  * Tested by: Charles Infante
  */
 
-#ifndef GRAPH_C
-#define GRAPH_C
-
 #include "graph.h"
 
 Node *
@@ -138,5 +135,3 @@ int main(){
     addEdge(g,3,"Diana");
 }
 */
-
-#endif // GRAPH_C

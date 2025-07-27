@@ -2,6 +2,7 @@
  * Programmed by: Allen Hizon
  * Tested by: Allen Hizon
  */
+#include "graph.h"
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -17,7 +18,7 @@ createQueue()
 {
 
     Queue *q = malloc(sizeof(Queue));
-    
+
     if (q == NULL) {
         printf("\nMemory allocation error for queue!");
         return NULL;
@@ -67,8 +68,8 @@ dequeue(Queue *q)
     if (isEmpty(q)) {
         q->front == 0;
         q->rear == 0;
-
         // Reset to 0 so front and rear don't get too big when the queue is emptied
     }
+    
     return val;
 }

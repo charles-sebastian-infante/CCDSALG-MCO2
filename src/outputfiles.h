@@ -5,7 +5,7 @@
 
 #ifndef OUTPUTFILES
 #define OUTPUTFILES
-#include "graph.c"
+#include "graph.h"
 #include <stdio.h>
 
 
@@ -56,10 +56,10 @@ void outputAdjacencyMatrix(char *strOutputFileName, Graph *g);
 /**
  * Writes the BFS traversal of a node from a graph to a file
  * @param strOutputFileName The filename where the output will be stored
- * @param startIndex The index of the start node
  * @param g Graph to be outputted
+ * @param vertex The start vertex
  */
-void outputBFS(char *strOutputFileName, int startIndex, Graph *g);
+void outputBFS(char *strOutputFileName, Graph *g, char *vertex);
 
 /**
  * Writes the DFS traversal of a node from a graph to a file

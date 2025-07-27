@@ -28,6 +28,6 @@ int main() {
     outputAdjacencyMatrix("G-MATRIX.TXT", g);
     outputSet("G-SET.TXT", *g);
     outputDegree("G-DEGREE.TXT", *g);
-    outputBFS("G-BFS.TXT", 3, g);
+    outputBFS("G-BFS.TXT", g, "Clark");
     printGraph(*g);
 }

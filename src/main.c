@@ -39,7 +39,7 @@ int main() {
         outputDegree(output2FileName, *g);           // output 2
         outputAdjacencyList(output3FileName, g);       // output 3
         outputAdjacencyMatrix(output4FileName, g);   // output 4
-
+        
         char startVertex[9];
 
         printf("Input start vertex for the traversal: ");

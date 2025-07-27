@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "graph.c"
+#include "graph.h"
 
 #ifndef EDGE_DEFINED
 #define EDGE_DEFINED

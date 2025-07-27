@@ -3,7 +3,7 @@
  * Tested by: Christian Gendrano
  */
 
-#include "graph.c"
+#include "graph.h"
 
 /**
  * Gets the degree of a vertex based on its ID. The degree

@@ -3,7 +3,7 @@
  * Tested by: Christian Gendrano
  */
 
-#include "graph.c"
+#include "graph.h"
 
 /**
  * Reads an input file containing a graph data structure. Note that the

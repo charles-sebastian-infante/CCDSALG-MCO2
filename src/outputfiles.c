@@ -3,11 +3,12 @@
  * Tested by: Christian Gendrano, Charles Infante, and Allen Hizon
  */
 
-#include "outputfiles.h"
-
+#include "graph.c"
 #include "output1-set.c"
 #include "output2-degree.c"
 #include "output3-bfs.c"
+#include "output4-dfs.c"
+#include "outputfiles.h"
 
 /**
  * Produces output file #1, which contains the set of vertices and the set of edges in alphabetical order.
@@ -174,11 +175,24 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
     free(matrix);
 }
 
+int
+findVertexIDFromName(char *name, Graph *g)
+{
+    for (int i = 0; i < g->numVertices; i++) {
+        if (strcmp(g->adjacencyList[i]->name, name) == 0) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 void
-outputBFS(char *strOutputFileName, int startVertex, Graph *g)
+outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 {
 
     FILE *fp = fopen(strOutputFileName, "w");
+    int startVertex = findVertexIDFromName(vertex, g);
 
     bool *visited = calloc(g->numVertices, sizeof(bool));
     // Create an array of boolean values where each index is the vertex number
@@ -186,8 +200,8 @@ outputBFS(char *strOutputFileName, int startVertex, Graph *g)
     // Create a queue to store all the unvisited indices
     Queue *verticeQueue = createQueue();
 
-    // Create adjacency matrix so the BFS is in the right order
-    bool **matrix = createAdjacencyMatrix(g);
+    // Use adjacency matrix so the BFS is in the right order
+    bool **matrix = g->adjacencyMatrix;
 
     enqueue(verticeQueue, startVertex);
     visited[startVertex] = true;
@@ -206,21 +220,34 @@ outputBFS(char *strOutputFileName, int startVertex, Graph *g)
         }
     }
 
-    for (int i = 0; i < g->numVertices; i++) {
-        free(matrix[i]);
-    }
-
-    free(matrix);
     free(verticeQueue);
 
     fclose(fp);
 }
 
 void
-outputDFS(char *strOutputFileName, Graph *g)
+recursiveDFS(Graph *g, bool visited[], int vertex)
+{
+    for (int i = 0; i < g->numVertices; i++) {
+        if (adjacencyMatrix[vertex][i])
+    }
+
+}
+
+void
+outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 {
     FILE *fp = fopen(strOutputFileName, "w");
+    int startVertex = findVertexIDFromName(vertex, g);
 
+    bool *visited = calloc(g->numVertices, sizeof(bool));
+    // Create an array of boolean values where each index is the vertex number
+
+    // Use adjacency matrix so the DFS is in the right order
+    bool **matrix = g->adjacencyMatrix;
+
+    // Create a stack to store all the indices
+    Stack *verticeStack = createStack();
 
 
     fclose(fp);

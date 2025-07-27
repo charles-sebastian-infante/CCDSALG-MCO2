@@ -2,6 +2,7 @@
  * Programmed by: Charles Infante
  * Tested by: Charles Infante
  */
+#ifndef GRAPH_H
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -70,3 +71,6 @@ bool hasEdge(Graph *g, int startVertex, char *name);
  * @return true if the edge is successfully created, false otherwise.
  */
 bool addEdge(Graph *g, int startVertex, char *endName);
+
+#define GRAPH_H
+#endif
