@@ -193,19 +193,19 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 
 
 void
-recursiveDFS(Graph *g, bool visited[], int vertex)
+recursiveDFS(FILE* fp, Graph *g, bool visited[], int vertex)
 {
 
     if (visited[vertex]) {
         return; // immediately return to avoid revisiting
     }
 
-    printf("[%s]", g->adjacencyList[vertex]->name);
+    fprintf(fp, "%s ", g->adjacencyList[vertex]->name);
     visited[vertex] = true;
 
     for (int i = 0; i < g->numVertices; i++) {
         if (g->adjacencyMatrix[vertex][i] == true && !visited[i]) {
-            recursiveDFS(g, visited, i);
+            recursiveDFS(fp, g, visited, i);
         }
     }
     return;
@@ -224,7 +224,7 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
     // Use adjacency matrix so the DFS is in the right order
     bool **matrix = g->adjacencyMatrix;
     
-    recursiveDFS(g, visited, startVertex);
+    recursiveDFS(fp, g, visited, startVertex);
 
     fclose(fp);
 }
