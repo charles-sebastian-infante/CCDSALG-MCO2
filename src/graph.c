@@ -141,6 +141,39 @@ createAdjacencyMatrix(Graph *g)
     return matrix;
 }
 
+void
+freeAdjacencyList(Graph *g) {
+    Node **list = g->adjacencyList;
+    int numVertex = g->numVertices;
+
+    Node *current, *previous;
+    for (int i = 0; i < numVertex; i++) {
+        current = list[i];
+
+        while (current->next != NULL) {
+            previous = current;
+            current = current->next;
+            free(previous);
+        }
+
+        free(current); // freeing the last element in the list
+    }
+
+    free(list); // freeing the memory for the pointer to the list
+}
+
+void
+freeAdjacencyMatrix(Graph *g) {
+    bool **matrix = g->adjacencyMatrix;
+    int numVertex = g->numVertices;
+
+    for (int i = 0; i < numVertex; i++) {
+        free(matrix[i]);
+    }
+
+    free(matrix);
+}
+
 /*
 // G.txt used for testing outputs
 // delete for final submission

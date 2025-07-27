@@ -141,11 +141,6 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
         }
         fprintf(fp, "\n");
     }
-
-    for (int i = 0; i < numVertex; i++) {
-        free(matrix[i]);
-    }
-    free(matrix);
 }
 
 int

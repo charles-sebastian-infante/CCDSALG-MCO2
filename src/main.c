@@ -53,6 +53,9 @@ int main() {
             // TODO put DFS here
         }
     }
+
+    freeAdjacencyList(g);
+    freeAdjacencyMatrix(g);
     
     return 0;
 }

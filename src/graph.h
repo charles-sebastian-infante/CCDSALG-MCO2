@@ -79,6 +79,18 @@ bool addEdge(Graph *g, int startVertex, char *endName);
  * @return 2D bool array representing the adjacency matrix
  */
 bool **createAdjacencyMatrix(Graph *g);
+/**
+ * Frees the dynamic memory allocated for the adjacency list of the graph.
+ * 
+ * @param g Pointer to the graph
+ */
+void freeAdjacencyList(Graph *g);
+/**
+ * Frees the dynamic memory allocated for the adjacency matrix of the graph.
+ * 
+ * @param g Pointer to the graph
+ */
+void freeAdjacencyMatrix(Graph *g);
 
 #define GRAPH_H
 #endif
