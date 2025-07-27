@@ -29,14 +29,12 @@ typedef struct nodeTag {
  * an implementation of the Graph data structure
  * @param numVertices is the number of vertices or Nodes in the graph
  * @param adjacencyList Array of singly linked lists containing Nodes
- * @param adjacencyMatrix A square 2D array of boolean values representing the graph
  * @param mapUnsortedToSorted An array of integers mapping the original vertex indices to their indices when sorted alphabetically 
  * @param mapSortedToUnsorted An array of integers mapping the sorted vertex indices to their original indices in order of insertion
  */
 typedef struct graphTag {
     int numVertices;
     Node **adjacencyList;
-    bool **adjacencyMatrix;
     int mapUnsortedToSorted[MAX_VERTICES];
     int mapSortedToUnsorted[MAX_VERTICES];
 } Graph;
@@ -143,11 +141,12 @@ bool **createSortedAdjacencyMatrix(Graph *g);
 void freeAdjacencyList(Graph *g);
 
 /**
- * Frees the dynamic memory allocated for the adjacency matrix of the graph.
+ * Frees the dynamic memory allocated for an adjacency matrix.
  * 
- * @param g Pointer to the graph
+ * @param m pointer to the matrix
+ * @param numVertices the number of vertices in the matrix
  */
-void freeAdjacencyMatrix(Graph *g);
+void freeAdjacencyMatrix(bool **m, int numVertices);
 
 #define GRAPH_H
 #endif

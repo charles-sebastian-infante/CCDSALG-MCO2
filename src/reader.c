@@ -75,10 +75,7 @@ bool readInputFile(char strInputFileName[], Graph **g) {
         }
     }
 
-    // now, creating the adjacency matrix part of the graph
-    (*g)->adjacencyMatrix = createAdjacencyMatrix(*g);
-
-    // now, creating the index graph's index maps portion
+    // now, creating the graph's index maps portion
     char vertexIds[numVertices][ID_LENGTH];
     getVertexIds(*(*g), vertexIds);
     sortVertexIds(vertexIds, numVertices);

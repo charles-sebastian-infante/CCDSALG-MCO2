@@ -331,30 +331,13 @@ freeAdjacencyList(Graph *g) {
 }
 
 /**
- * Frees the dynamic memory allocated for the adjacency matrix of the graph.
- * 
- * @param g Pointer to the graph
- */
-void
-freeAdjacencyMatrix(Graph *g) {
-    bool **matrix = g->adjacencyMatrix;
-    int numVertex = g->numVertices;
-
-    for (int i = 0; i < numVertex; i++) {
-        free(matrix[i]);
-    }
-
-    free(matrix);
-}
-
-/**
- * Frees the dynamic memory allocated for the sorted adjacency matrix.
+ * Frees the dynamic memory allocated for an adjacency matrix.
  * 
  * @param m pointer to the matrix
  * @param numVertices the number of vertices in the matrix
  */
 void
-freeSortedAdjacencyMatrix(bool **m, int numVertices)
+freeAdjacencyMatrix(bool **m, int numVertices)
 {
 
     for (int i = 0; i < numVertices; i++) {

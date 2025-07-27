@@ -56,7 +56,6 @@ int main() {
     outputDFS(output6FileName, g, startVertex);
 
     freeAdjacencyList(g);
-    freeAdjacencyMatrix(g);
     
     return 0;
 }

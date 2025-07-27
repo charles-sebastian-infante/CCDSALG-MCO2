@@ -135,7 +135,7 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 {
     FILE *fp = fopen(strOutputFileName, "w");
 
-    bool **matrix = g->adjacencyMatrix;
+    bool **matrix = createAdjacencyMatrix(g);
 
     fprintf(fp, "%9s", " ");
 
@@ -151,6 +151,8 @@ outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
         }
         fprintf(fp, "\n");
     }
+
+    freeAdjacencyMatrix(matrix, g->numVertices);
 }
 
 /**
@@ -197,7 +199,7 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
     }
 
     free(vertexQueue);
-    freeSortedAdjacencyMatrix(matrix, g->numVertices);
+    freeAdjacencyMatrix(matrix, g->numVertices);
     fclose(fp);
 }
 
@@ -224,6 +226,6 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 
     recursiveDFS(fp, g, matrix, visited, startVertex);
 
-    freeSortedAdjacencyMatrix(matrix, g->numVertices);
+    freeAdjacencyMatrix(matrix, g->numVertices);
     fclose(fp);
 }
