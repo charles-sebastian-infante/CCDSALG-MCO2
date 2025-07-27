@@ -226,11 +226,20 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 }
 
 void
-recursiveDFS(Graph *g, bool visited[], int vertex)
+recursiveDFS(Graph *g, Stack *s, bool visited[], int vertex)
 {
+    int i = 0;
+
+    while (adjacencyMatrix[vertex][i] != true || !visite)
+
     for (int i = 0; i < g->numVertices; i++) {
-        if (adjacencyMatrix[vertex][i])
+        if (adjacencyMatrix[vertex][i] == true && !visited[i]) {
+            push(s, i);
+            recursiveDFS(g, s,)
+        }
     }
+
+
 
 }
 
