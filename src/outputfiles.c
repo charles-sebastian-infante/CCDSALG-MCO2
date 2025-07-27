@@ -7,7 +7,7 @@
 #include "output1-set.c"
 #include "output2-degree.c"
 #include "output3-bfs.c"
-#include "output4-dfs.c"
+// #include "output4-dfs.c"
 #include "outputfiles.h"
 
 /**
@@ -118,33 +118,6 @@ outputAdjacencyList(char *strOutputFileName, Graph *g)
     fclose(fp);
 }
 
-bool **
-createAdjacencyMatrix(Graph *g)
-{
-    int numVertex = g->numVertices;
-
-    // populate matrix with 0s
-    bool **matrix = calloc(numVertex, sizeof(bool *));
-
-    for (int i = 0; i < numVertex; i++) {
-        matrix[i] = calloc(numVertex, sizeof(bool));
-    }
-
-    // populate matrix with necessary values
-    for (int i = 0; i < numVertex; i++) {
-        Node *current = g->adjacencyList[i];
-
-        // note that since the initial node is itself, there will never be an edge from self-self.
-        while (current->next != NULL) {
-            current = current->next;
-            matrix[i][current->nodeIndex] = true;
-        }
-    }
-
-    // return matrix
-    return matrix;
-}
-
 void
 outputAdjacencyMatrix(char *strOutputFileName, Graph *g)
 {
@@ -225,6 +198,7 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
     fclose(fp);
 }
 
+/*
 void
 recursiveDFS(Graph *g, bool visited[], int vertex)
 {
@@ -232,8 +206,9 @@ recursiveDFS(Graph *g, bool visited[], int vertex)
         if (adjacencyMatrix[vertex][i])
     }
 
-}
+} */
 
+/*
 void
 outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 {
@@ -251,4 +226,4 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 
 
     fclose(fp);
-}
+} */
