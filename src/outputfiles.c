@@ -197,7 +197,7 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
     }
 
     free(vertexQueue);
-    freeAdjacencyMatrix(matrix);
+    freeSortedAdjacencyMatrix(matrix, g->numVertices);
     fclose(fp);
 }
 
@@ -224,6 +224,6 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 
     recursiveDFS(fp, g, matrix, visited, startVertex);
 
-    freeAdjacencyMatrix(matrix);
+    freeSortedAdjacencyMatrix(matrix, g->numVertices);
     fclose(fp);
 }
