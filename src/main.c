@@ -53,7 +53,7 @@ int main() {
     }
 
     outputBFS(output5FileName, g, startVertex);
-    // TODO put DFS here
+    outputDFS(output6FileName, g, startVertex);
 
     freeAdjacencyList(g);
     freeAdjacencyMatrix(g);

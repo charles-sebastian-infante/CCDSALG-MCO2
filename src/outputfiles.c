@@ -160,7 +160,6 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 
     FILE *fp = fopen(strOutputFileName, "w");
     int startVertex = findVertexIDFromName(vertex, g);
-    printf("Starts at vertex %d", startVertex);
 
     bool *visited = calloc(g->numVertices, sizeof(bool));
     // Create an array of boolean values where each index is the vertex number
@@ -194,25 +193,22 @@ outputBFS(char *strOutputFileName, Graph *g, char *vertex)
 
 
 void
-recursiveDFS(Graph *g, Stack *s, bool visited[], int vertex)
+recursiveDFS(Graph *g, bool visited[], int vertex)
 {
+
+    if (visited[vertex]) {
+        return; // immediately return to avoid revisiting
+    }
 
     printf("[%s]", g->adjacencyList[vertex]->name);
     visited[vertex] = true;
 
-    int i = 0;
-
-    while((g->adjacencyMatrix[vertex][i] == false || visited[i]) && i < MAX_VERTICES) {
-        i++;
+    for (int i = 0; i < g->numVertices; i++) {
+        if (g->adjacencyMatrix[vertex][i] == true && !visited[i]) {
+            recursiveDFS(g, visited, i);
+        }
     }
-
-    if (i == MAX_VERTICES) {
-        // no vertex found
-        return;
-    }
-    else {
-        recursiveDFS(g, s, visited, i);
-    }
+    return;
 }
 
 
@@ -227,15 +223,8 @@ outputDFS(char *strOutputFileName, Graph *g, char *vertex)
 
     // Use adjacency matrix so the DFS is in the right order
     bool **matrix = g->adjacencyMatrix;
-
-    // Create a stack to store all the indices
-    Stack *vertexStack = createStack();
     
-    recursiveDFS(g, vertexStack, visited, startVertex);
-
-    while (!isStackEmpty(vertexStack)) {
-        recursiveDFS(g, vertexStack, visited, pop(vertexStack));
-    }
+    recursiveDFS(g, visited, startVertex);
 
     fclose(fp);
 }
