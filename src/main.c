@@ -55,7 +55,7 @@ int main() {
     outputBFS(output5FileName, g, startVertex);
     outputDFS(output6FileName, g, startVertex);
 
-    freeAdjacencyList(g);
+    freeGraph(g);
     
     return 0;
 }

@@ -138,7 +138,7 @@ bool **createSortedAdjacencyMatrix(Graph *g);
  * 
  * @param g Pointer to the graph
  */
-void freeAdjacencyList(Graph *g);
+void freeGraph(Graph *g);
 
 /**
  * Frees the dynamic memory allocated for an adjacency matrix.

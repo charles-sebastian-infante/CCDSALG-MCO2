@@ -170,10 +170,8 @@ int main() {
 
     fclose(fp);
 
-    freeAdjacencyList(graph1);
-    freeAdjacencyList(graph2);
-    freeAdjacencyMatrix(graph1);
-    freeAdjacencyMatrix(graph2);
+    freeGraph(graph1);
+    freeGraph(graph2);
 
     return 0;
 }
